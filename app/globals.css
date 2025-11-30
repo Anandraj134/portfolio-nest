@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors */
+  --primary: #0A192F;
+  --secondary: #64FFDA;
+  --accent: #C77DFF;
+  
+  /* Backgrounds */
+  --bg-dark: #0A0A0A;
+  --bg-light: #1A1A1A;
+  
+  /* Text */
+  --text-gray: #8892B0;
+  --text-light: #E6F1FF;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  cursor: none; /* Hide default cursor */
+  color: var(--text-light);
+  background: var(--bg-dark);
+  overflow-x: hidden;
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Custom Focus Styles */
+*:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reset margins/padding is handled by Tailwind base, but ensuring box-sizing just in case */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-600;
+  }
+}

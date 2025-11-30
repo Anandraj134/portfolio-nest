@@ -1,0 +1,162 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Menu } from "lucide-react";
+import dynamic from "next/dynamic";
+
+// Dynamic import to avoid hydration mismatch with mobile menu
+const MobileMenu = dynamic(() => import("./MobileMenu"), { ssr: false });
+
+import { trackClick } from "@/utils/analytics";
+
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
+
+  useEffect(() => {
+    const handleScrollSpy = () => {
+      // "experience" is the correct ID from your Timeline.tsx
+      const sections = [
+        "home",
+        "about",
+        "skills",
+        "projects",
+        "experience", 
+        "contact",
+      ];
+      
+      // Offset calculation: Trigger active state when section is 1/3 up the screen
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      for (const section of sections) {
+        const element = document.getElementById(
+          section === "home" ? "main-content" : section
+        );
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollSpy);
+    handleScrollSpy(); // Initial check
+    return () => window.removeEventListener("scroll", handleScrollSpy);
+  }, []);
+
+  const navLinks = [
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" }, // Correct href matching ID in Timeline.tsx
+    { name: "Contact", href: "#contact" },
+  ];
+
+  return (
+    <>
+      <motion.nav
+        initial={{ y: 0 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-background-dark/80 backdrop-blur-md shadow-lg border-b border-secondary/10"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <motion.a
+            href="#"
+            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-600 min-w-[44px] min-h-[44px] flex items-center"
+            aria-label="Anand Patel Portfolio Home"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            AP
+          </motion.a>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex gap-8">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                
+                return (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className={`relative text-sm font-medium transition-colors hover:text-secondary py-2 ${
+                        isActive
+                          ? "text-secondary"
+                          : "text-text-gray"
+                      }`}
+                      onClick={() => {
+                        setActiveSection(link.href.substring(1));
+                        trackClick("nav_click", link.name, {
+                          target_section: link.href.substring(1),
+                          current_section: activeSection,
+                        });
+                      }}
+                    >
+                      {link.name}
+                      {isActive && (
+                        <motion.span
+                          // Unique ID prevents layout animation conflicts
+                          layoutId="activeSectionDesktop"
+                          className="absolute left-0 bottom-0 w-full h-0.5 bg-secondary"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-4 md:hidden">
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(true);
+                trackClick("mobile_menu_open", "navbar_hamburger");
+              }}
+              className="p-2 text-text-light min-w-[44px] min-h-[44px] flex items-center justify-center"
+              aria-label="Open menu"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        navLinks={navLinks}
+        activeSection={activeSection}
+      />
+    </>
+  );
+};
+
+export default Navbar;

@@ -23,37 +23,39 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScrollSpy = () => {
-      // "experience" is the correct ID from your Timeline.tsx
       const sections = [
         "home",
         "about",
         "skills",
         "projects",
-        "experience", 
+        "experience",
         "contact",
       ];
-      
-      // Offset calculation: Trigger active state when section is 1/3 up the screen
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
 
-      for (const section of sections) {
-        const element = document.getElementById(
-          section === "home" ? "main-content" : section
-        );
+      // Get current scroll position with navbar offset
+      const scrollPosition = window.scrollY + 100; // Navbar height offset
+
+      // Find the current section
+      let currentSection = "home"; // Default to home
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const element = document.getElementById(section);
+
         if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
+          const { offsetTop } = element;
+          // If we've scrolled past this section's top, it's the active one
+          if (scrollPosition >= offsetTop) {
+            currentSection = section;
             break;
           }
         }
       }
+
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScrollSpy);
+    window.addEventListener("scroll", handleScrollSpy, { passive: true });
     handleScrollSpy(); // Initial check
     return () => window.removeEventListener("scroll", handleScrollSpy);
   }, []);
@@ -95,15 +97,13 @@ const Navbar = () => {
             <ul className="flex gap-8">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
-                
+
                 return (
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className={`relative text-sm font-medium transition-colors hover:text-secondary py-2 ${
-                        isActive
-                          ? "text-secondary"
-                          : "text-text-gray"
+                      className={`relative block text-sm font-medium transition-colors hover:text-secondary py-2 ${
+                        isActive ? "text-secondary" : "text-text-gray"
                       }`}
                       onClick={() => {
                         setActiveSection(link.href.substring(1));
@@ -116,9 +116,8 @@ const Navbar = () => {
                       {link.name}
                       {isActive && (
                         <motion.span
-                          // Unique ID prevents layout animation conflicts
                           layoutId="activeSectionDesktop"
-                          className="absolute left-0 bottom-0 w-full h-0.5 bg-secondary"
+                          className="absolute left-0 -bottom-1 w-full h-0.5 bg-secondary rounded-full"
                           transition={{
                             type: "spring",
                             stiffness: 380,

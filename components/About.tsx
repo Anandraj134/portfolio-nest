@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import { motion, useTransform, useMotionValue, useSpring } from "framer-motion";
-import TextReveal from "./TextReveal";
 
 const About = () => {
   const x = useMotionValue(0);
@@ -40,24 +39,25 @@ const About = () => {
   };
 
   // Fresher-focused highlights
+  // Fresher-focused highlights
   const highlights = [
     {
       label: "Experience",
       value: "2.5+",
       suffix: "Years",
-      desc: "Dev & Systems",
+      desc: "Continuous Learning",
     },
     {
       label: "Projects",
-      value: "3",
-      suffix: "Major",
-      desc: "End-to-End Deployed",
+      value: "03",
+      suffix: "Real-World",
+      desc: "Delivered to Clients",
     },
     {
-      label: "Education",
-      value: "M.Sc",
-      suffix: "",
-      desc: "IoT & Data Eng.",
+      label: "Clients",
+      value: "02",
+      suffix: "Happy",
+      desc: "Collaborations",
     },
   ];
 
@@ -73,18 +73,21 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-24 bg-background-dark overflow-hidden w-full"
+      className="py-24 bg-background-dark overflow-hidden w-full relative"
     >
+      {/* Grid Pattern Removed */}
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          
           {/* LEFT COLUMN: Text Content */}
           <div className="space-y-8 relative z-10">
             <div className="space-y-4">
-              <TextReveal
-                text="About Me"
-                className="text-3xl md:text-5xl font-bold text-text-light"
-              />
+              <h2 className="text-4xl md:text-7xl font-bold text-text-light mb-6 tracking-tight">
+                About{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-purple-500">
+                  Me
+                </span>
+              </h2>
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: "100px" }}
@@ -94,14 +97,19 @@ const About = () => {
               />
             </div>
 
-            <div className="space-y-4 text-text-gray text-lg leading-relaxed">
+            <div className="space-y-4 text-text-gray text-xl leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                I am a <strong className="text-secondary">Full-Stack Developer</strong> and <strong className="text-secondary">IoT Specialist</strong> bridging the gap between hardware and software. Currently completing my Master&apos;s in IoT & Enterprise Systems, I combine academic rigor with practical, hands-on development.
+                I am a passionate{" "}
+                <strong className="text-secondary">Full-Stack Developer</strong>{" "}
+                eager to build meaningful solutions. While I am early in my
+                journey, I bring a strong foundation in{" "}
+                <strong className="text-secondary">Mobile Development</strong>{" "}
+                and <strong className="text-secondary">IoT Systems</strong>.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -109,7 +117,13 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                With over 2.5 years of coding experience, I have delivered robust applications using <strong className="text-text-light">Flutter</strong> and <strong className="text-text-light">React Native</strong>. I don&apos;t just write code; I engineer data pipelines and scalable systems, focusing on performance and clean architecture.
+                Over the last{" "}
+                <strong className="text-text-light">2.5+ years</strong>, I have
+                successfully delivered{" "}
+                <strong className="text-text-light">3 major projects</strong>{" "}
+                for <strong className="text-text-light">2 clients</strong>,
+                focusing on quality and performance. I am constantly learning
+                and adapting to new technologies to solve real-world problems.
               </motion.p>
             </div>
 
@@ -178,7 +192,8 @@ const About = () => {
                 style={{ x: xMain, y: yMain }}
                 className="relative w-[75%] h-[85%] rounded-2xl overflow-hidden shadow-2xl border border-text-gray/10 group bg-background-light"
               >
-                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-10" /> {/* Tint overlay to match theme */}
+                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-10" />{" "}
+                {/* Tint overlay to match theme */}
                 <Image
                   src="/images/1764432706702.jpg"
                   alt="Anand Patel Profile"

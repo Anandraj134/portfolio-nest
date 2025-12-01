@@ -394,33 +394,120 @@ const categoryStyles: Record<
 
 const skillsData: Skill[] = [
   // Mobile (Blue Theme)
-  { name: "Flutter", icon: <Smartphone size={32} />, category: "Mobile", desc: "High-performance cross-platform apps." },
-  { name: "React Native", icon: <Code2 size={32} />, category: "Mobile", desc: "Native-like experiences with JavaScript." },
-  { name: "Kotlin", icon: <Terminal size={32} />, category: "Mobile", desc: "Modern Android development." },
-  { name: "Swift", icon: <Zap size={32} />, category: "Mobile", desc: "Native iOS development." },
+  {
+    name: "Flutter",
+    icon: <Smartphone size={32} />,
+    category: "Mobile",
+    desc: "High-performance cross-platform apps.",
+  },
+  {
+    name: "React Native",
+    icon: <Code2 size={32} />,
+    category: "Mobile",
+    desc: "Native-like experiences with JavaScript.",
+  },
+  {
+    name: "Kotlin",
+    icon: <Terminal size={32} />,
+    category: "Mobile",
+    desc: "Modern Android development.",
+  },
+  {
+    name: "Swift",
+    icon: <Zap size={32} />,
+    category: "Mobile",
+    desc: "Native iOS development.",
+  },
 
   // Backend (Emerald Theme)
-  { name: "Firebase", icon: <Cloud size={32} />, category: "Backend", desc: "Real-time DB & serverless backend." },
-  { name: "GraphQL", icon: <Globe size={28} />, category: "Backend", desc: "Efficient data querying APIs." },
-  { name: "Node.js", icon: <Server size={24} />, category: "Backend", desc: "Scalable server-side applications." },
-  { name: "Local DB", icon: <Database size={28} />, category: "Backend", desc: "Room, Hive, & SQLite solutions." },
+  {
+    name: "Firebase",
+    icon: <Cloud size={32} />,
+    category: "Backend",
+    desc: "Real-time DB & serverless backend.",
+  },
+  {
+    name: "GraphQL",
+    icon: <Globe size={28} />,
+    category: "Backend",
+    desc: "Efficient data querying APIs.",
+  },
+  {
+    name: "Node.js",
+    icon: <Server size={24} />,
+    category: "Backend",
+    desc: "Scalable server-side applications.",
+  },
+  {
+    name: "Local DB",
+    icon: <Database size={28} />,
+    category: "Backend",
+    desc: "Room, Hive, & SQLite solutions.",
+  },
 
   // Core (Amber Theme)
-  { name: "Clean Arch", icon: <Layers size={32} />, category: "Core", desc: "Scalable & testable code structure." },
-  { name: "State Mgmt", icon: <Settings size={28} />, category: "Core", desc: "Redux, Bloc, Riverpod patterns." },
+  {
+    name: "Clean Arch",
+    icon: <Layers size={32} />,
+    category: "Core",
+    desc: "Scalable & testable code structure.",
+  },
+  {
+    name: "State Mgmt",
+    icon: <Settings size={28} />,
+    category: "Core",
+    desc: "Redux, Bloc, Riverpod patterns.",
+  },
 
   // Design (Pink Theme)
-  { name: "UI/UX", icon: <PenTool size={28} />, category: "Design", desc: "Intuitive & accessible interfaces." },
-  { name: "Design Systems", icon: <Layout size={24} />, category: "Design", desc: "Consistent component libraries." },
-  { name: "Motion", icon: <Zap size={24} />, category: "Design", desc: "Fluid & engaging interactions." },
+  {
+    name: "UI/UX",
+    icon: <PenTool size={28} />,
+    category: "Design",
+    desc: "Intuitive & accessible interfaces.",
+  },
+  {
+    name: "Design Systems",
+    icon: <Layout size={24} />,
+    category: "Design",
+    desc: "Consistent component libraries.",
+  },
+  {
+    name: "Motion",
+    icon: <Zap size={24} />,
+    category: "Design",
+    desc: "Fluid & engaging interactions.",
+  },
 
   // Tools (Violet Theme)
-  { name: "Docker", icon: <Box size={24} />, category: "Tools", desc: "Containerization & deployment." },
-  { name: "Testing", icon: <Cpu size={28} />, category: "Tools", desc: "Unit, Widget & Integration tests." },
-  { name: "Push Notifs", icon: <Wifi size={28} />, category: "Tools", desc: "User engagement & updates." },
+  {
+    name: "Docker",
+    icon: <Box size={24} />,
+    category: "Tools",
+    desc: "Containerization & deployment.",
+  },
+  {
+    name: "Testing",
+    icon: <Cpu size={28} />,
+    category: "Tools",
+    desc: "Unit, Widget & Integration tests.",
+  },
+  {
+    name: "Push Notifs",
+    icon: <Wifi size={28} />,
+    category: "Tools",
+    desc: "User engagement & updates.",
+  },
 ];
 
-const filterCategories: SkillCategory[] = ["All", "Mobile", "Backend", "Core", "Design", "Tools"];
+const filterCategories: SkillCategory[] = [
+  "All",
+  "Mobile",
+  "Backend",
+  "Core",
+  "Design",
+  "Tools",
+];
 
 // --- Main Component ---
 
@@ -441,6 +528,8 @@ const Skills = () => {
     >
       {/* Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Grid Pattern Removed */}
+
         <div className="absolute top-[10%] right-[-10%] w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px]" />
         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px]" />
       </div>
@@ -452,9 +541,12 @@ const Skills = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-500 mb-4"
+            className="text-4xl md:text-7xl font-bold text-text-light mb-6 tracking-tight"
           >
-            Technical Arsenal
+            Technical{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-purple-500">
+              Arsenal
+            </span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -462,7 +554,8 @@ const Skills = () => {
             transition={{ delay: 0.2 }}
             className="text-text-gray max-w-lg mx-auto"
           >
-            A curated list of technologies I use to build scalable, high-performance mobile solutions.
+            A curated list of technologies I use to build scalable,
+            high-performance mobile solutions.
           </motion.p>
         </div>
 
@@ -563,7 +656,9 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
             {skill.name}
           </h4>
           {/* Small Colored Indicator Line */}
-          <div className={`h-1 w-8 rounded-full ${styles.bg.replace("/10", "")}`} />
+          <div
+            className={`h-1 w-8 rounded-full ${styles.bg.replace("/10", "")}`}
+          />
         </div>
 
         {/* Back Side */}

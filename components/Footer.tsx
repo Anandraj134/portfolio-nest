@@ -65,6 +65,8 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-background-dark border-t border-white/5 pt-20 pb-10 overflow-hidden">
+      {/* Grid Pattern Removed */}
+
       {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
@@ -81,12 +83,13 @@ const Footer = () => {
               Anand<span className="text-secondary">.dev</span>
             </a>
             <p className="text-text-gray leading-relaxed max-w-xs">
-              Crafting pixel-perfect mobile experiences and scalable systems for the modern web.
+              Crafting pixel-perfect mobile experiences and scalable systems for
+              the modern web.
             </p>
             {/* Live Time Widget */}
             <div className="flex items-center gap-2 text-sm text-text-gray/80 bg-white/5 w-fit px-3 py-1.5 rounded-full border border-white/5">
-                <Clock size={14} className="text-secondary" />
-                <span>{time || "Loading..."}</span>
+              <Clock size={14} className="text-secondary" />
+              <span>{time || "Loading..."}</span>
             </div>
           </div>
 
@@ -113,8 +116,8 @@ const Footer = () => {
             <h4 className="text-lg font-bold text-text-light mb-6">Contact</h4>
             <ul className="space-y-4">
               <li>
-                <a 
-                  href="mailto:hello@anand.dev" 
+                <a
+                  href="mailto:hello@anand.dev"
                   className="flex items-center gap-3 text-text-gray hover:text-text-light transition-colors group"
                 >
                   <div className="p-2 rounded-lg bg-white/5 text-secondary group-hover:bg-secondary group-hover:text-background-dark transition-all">
@@ -136,7 +139,9 @@ const Footer = () => {
 
           {/* Socials */}
           <div>
-            <h4 className="text-lg font-bold text-text-light mb-6">Follow Me</h4>
+            <h4 className="text-lg font-bold text-text-light mb-6">
+              Follow Me
+            </h4>
             <div className="flex gap-3 flex-wrap">
               {socialLinks.map((social, index) => (
                 <MagneticWrapper key={index}>
@@ -159,9 +164,9 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Anand Patel. Built with precision.
           </p>
           <div className="flex items-center gap-6 text-sm text-text-gray">
-             <p className="flex items-center gap-1.5">
-                Code by <span className="text-text-light font-medium">Anand</span>
-             </p>
+            <p className="flex items-center gap-1.5">
+              Code by <span className="text-text-light font-medium">Anand</span>
+            </p>
           </div>
         </div>
       </div>
@@ -181,7 +186,10 @@ const Footer = () => {
                 className="p-4 rounded-full bg-secondary text-background-dark shadow-[0_0_20px_rgba(100,255,218,0.3)] hover:shadow-[0_0_30px_rgba(100,255,218,0.5)] transition-shadow flex items-center justify-center group"
                 aria-label="Scroll to top"
               >
-                <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+                <ArrowUp
+                  size={24}
+                  className="group-hover:-translate-y-1 transition-transform duration-300"
+                />
               </button>
             </MagneticWrapper>
           </motion.div>

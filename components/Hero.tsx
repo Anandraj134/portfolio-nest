@@ -1,8 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from "framer-motion";
-import { ArrowDown, Smartphone, Zap, Code2, Layers, MousePointer2 } from "lucide-react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion";
+import {
+  ArrowDown,
+  Smartphone,
+  Zap,
+  Code2,
+  Layers,
+  MousePointer2,
+} from "lucide-react";
 import MagneticWrapper from "./MagneticWrapper";
 import TextReveal from "./TextReveal";
 import GlitchText from "./GlitchText";
@@ -16,7 +29,11 @@ const Hero = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -52,10 +69,9 @@ const Hero = () => {
       className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background-dark"
     >
       {/* --- Background Layer --- */}
-      
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-      
+
+      {/* --- Background Layer --- */}
+
       {/* Mouse Spotlight Effect */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 z-0"
@@ -71,13 +87,41 @@ const Hero = () => {
       />
 
       {/* Floating Abstract Elements (Parallax) */}
-      <FloatingIcon icon={<Smartphone size={40} />} delay={0} x={-20} y={-15} color="text-secondary" className="top-1/4 left-[10%] md:left-[15%]" />
-      <FloatingIcon icon={<Code2 size={35} />} delay={1} x={20} y={-20} color="text-accent" className="top-1/3 right-[10%] md:right-[20%]" />
-      <FloatingIcon icon={<Layers size={30} />} delay={2} x={-10} y={20} color="text-text-gray" className="bottom-1/3 left-[15%] opacity-50" />
-      <FloatingIcon icon={<Zap size={28} />} delay={1.5} x={15} y={15} color="text-secondary" className="bottom-1/4 right-[15%] opacity-60" />
+      <FloatingIcon
+        icon={<Smartphone size={40} />}
+        delay={0}
+        x={-20}
+        y={-15}
+        color="text-secondary"
+        className="top-1/4 left-[10%] md:left-[15%]"
+      />
+      <FloatingIcon
+        icon={<Code2 size={35} />}
+        delay={1}
+        x={20}
+        y={-20}
+        color="text-accent"
+        className="top-1/3 right-[10%] md:right-[20%]"
+      />
+      <FloatingIcon
+        icon={<Layers size={30} />}
+        delay={2}
+        x={-10}
+        y={20}
+        color="text-text-gray"
+        className="bottom-1/3 left-[15%] opacity-50"
+      />
+      <FloatingIcon
+        icon={<Zap size={28} />}
+        delay={1.5}
+        x={15}
+        y={15}
+        color="text-secondary"
+        className="bottom-1/4 right-[15%] opacity-60"
+      />
 
       {/* --- Content Layer --- */}
-      <motion.div 
+      <motion.div
         style={{ y, opacity }}
         className="relative z-20 text-center px-4 max-w-5xl mx-auto"
       >
@@ -115,7 +159,7 @@ const Hero = () => {
         <div className="text-2xl md:text-4xl text-text-gray mb-8 font-light flex flex-col md:flex-row items-center justify-center gap-3">
           <span>I architect</span>
           <div className="font-semibold text-text-light">
-             <GlitchText />
+            <GlitchText />
           </div>
         </div>
 
@@ -126,8 +170,11 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-base md:text-lg text-text-gray mb-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Transforming ideas into high-performance <span className="text-secondary">iOS</span> & <span className="text-secondary">Android</span> applications. 
-          I specialize in building pixel-perfect, fluid mobile experiences using Flutter and React Native.
+          Transforming ideas into high-performance{" "}
+          <span className="text-secondary">iOS</span> &{" "}
+          <span className="text-secondary">Android</span> applications. I
+          specialize in building pixel-perfect, fluid mobile experiences using
+          Flutter and React Native.
         </motion.p>
 
         {/* Buttons */}
@@ -143,7 +190,10 @@ const Hero = () => {
               className="w-full sm:w-auto px-8 py-4 bg-secondary text-background-dark font-bold rounded-full text-lg hover:bg-secondary/90 transition-all shadow-[0_0_20px_rgba(100,255,218,0.3)] flex items-center justify-center gap-2 group"
             >
               View My Work
-              <ArrowDown className="group-hover:translate-y-1 transition-transform" size={20} />
+              <ArrowDown
+                className="group-hover:translate-y-1 transition-transform"
+                size={20}
+              />
             </motion.button>
           </MagneticWrapper>
 
@@ -174,14 +224,14 @@ const Hero = () => {
         }}
       >
         <div className="w-[30px] h-[50px] rounded-full border-2 border-text-gray flex justify-center p-2">
-            <motion.div 
-                animate={{ y: [0, 12, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                className="w-1 h-2 bg-secondary rounded-full"
-            />
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className="w-1 h-2 bg-secondary rounded-full"
+          />
         </div>
       </motion.div>
-      
+
       {/* Gradient Overlay at bottom to blend into next section */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background-dark to-transparent z-10 pointer-events-none" />
     </section>
@@ -189,43 +239,43 @@ const Hero = () => {
 };
 
 // --- Sub-component for Floating Icons ---
-const FloatingIcon = ({ 
-    icon, 
-    delay, 
-    x, 
-    y, 
-    color, 
-    className 
-}: { 
-    icon: React.ReactNode, 
-    delay: number, 
-    x: number, 
-    y: number, 
-    color: string, 
-    className: string 
+const FloatingIcon = ({
+  icon,
+  delay,
+  x,
+  y,
+  color,
+  className,
+}: {
+  icon: React.ReactNode;
+  delay: number;
+  x: number;
+  y: number;
+  color: string;
+  className: string;
 }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ 
-                opacity: 1,
-                y: [0, y, 0],
-                x: [0, x, 0],
-                rotate: [0, 10, -10, 0]
-            }}
-            transition={{
-                opacity: { duration: 1, delay: delay },
-                y: { repeat: Infinity, duration: 5, ease: "easeInOut", delay: delay },
-                x: { repeat: Infinity, duration: 7, ease: "easeInOut", delay: delay },
-                rotate: { repeat: Infinity, duration: 10, ease: "linear" }
-            }}
-            className={`absolute hidden md:block ${color} ${className}`}
-        >
-            <div className="bg-background-dark/50 backdrop-blur-sm p-4 rounded-2xl border border-white/5 shadow-xl">
-                {icon}
-            </div>
-        </motion.div>
-    )
-}
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        y: [0, y, 0],
+        x: [0, x, 0],
+        rotate: [0, 10, -10, 0],
+      }}
+      transition={{
+        opacity: { duration: 1, delay: delay },
+        y: { repeat: Infinity, duration: 5, ease: "easeInOut", delay: delay },
+        x: { repeat: Infinity, duration: 7, ease: "easeInOut", delay: delay },
+        rotate: { repeat: Infinity, duration: 10, ease: "linear" },
+      }}
+      className={`absolute hidden md:block ${color} ${className}`}
+    >
+      <div className="bg-background-dark/50 backdrop-blur-sm p-4 rounded-2xl border border-white/5 shadow-xl">
+        {icon}
+      </div>
+    </motion.div>
+  );
+};
 
 export default Hero;

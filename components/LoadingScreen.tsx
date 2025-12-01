@@ -13,7 +13,7 @@ const loadingMessages = [
   "Loading modules...",
   "Compiling assets...",
   "Starting engine...",
-  "Ready."
+  "Ready.",
 ];
 
 const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
@@ -25,7 +25,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         const next = prev + Math.floor(Math.random() * 10) + 2;
-        
+
         if (next >= 100) {
           clearInterval(interval);
           return 100;
@@ -59,13 +59,14 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     <motion.div
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background-dark text-text-light"
       initial={{ y: 0 }}
-      exit={{ 
-        y: "-100%", 
-        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } // "Curtain lift" easing
+      exit={{
+        y: "-100%",
+        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }, // "Curtain lift" easing
       }}
     >
-      {/* Background subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      {/* Background Glows */}
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-sm px-6">
         {/* Brand Logo Animation */}
@@ -85,45 +86,47 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
         {/* Progress Bar Container */}
         <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden mb-4 relative">
-            {/* Moving Progress Bar */}
-            <motion.div 
-                className="h-full bg-secondary shadow-[0_0_10px_rgba(100,255,218,0.5)]"
-                initial={{ width: "0%" }}
-                animate={{ width: `${progress}%` }}
-                transition={{ type: "tween", ease: "linear", duration: 0.1 }}
-            />
+          {/* Moving Progress Bar */}
+          <motion.div
+            className="h-full bg-secondary shadow-[0_0_10px_rgba(100,255,218,0.5)]"
+            initial={{ width: "0%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ type: "tween", ease: "linear", duration: 0.1 }}
+          />
         </div>
 
         {/* Stats Row */}
         <div className="w-full flex justify-between items-center text-sm font-mono">
-            {/* Current Status Message */}
-            <span className="text-text-gray min-w-[150px]">
-                {progress === 100 ? "Launch Initialized" : loadingMessages[Math.min(messageIndex, loadingMessages.length - 1)]}
-            </span>
-            
-            {/* Percentage */}
-            <span className="text-secondary font-bold">
-                {progress}%
-            </span>
+          {/* Current Status Message */}
+          <span className="text-text-gray min-w-[150px]">
+            {progress === 100
+              ? "Launch Initialized"
+              : loadingMessages[
+                  Math.min(messageIndex, loadingMessages.length - 1)
+                ]}
+          </span>
+
+          {/* Percentage */}
+          <span className="text-secondary font-bold">{progress}%</span>
         </div>
       </div>
 
       {/* Decorative Background Icons (Faint) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div 
-            animate={{ rotate: 360 }} 
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-20 -right-20 text-white/5"
-          >
-             <Smartphone size={300} />
-          </motion.div>
-          <motion.div 
-             animate={{ y: [0, 20, 0] }}
-             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-             className="absolute -bottom-20 -left-20 text-white/5"
-          >
-             <Zap size={250} />
-          </motion.div>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-20 -right-20 text-white/5"
+        >
+          <Smartphone size={300} />
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -left-20 text-white/5"
+        >
+          <Zap size={250} />
+        </motion.div>
       </div>
     </motion.div>
   );

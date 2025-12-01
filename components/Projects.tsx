@@ -2,16 +2,22 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion";
 import { useSectionView } from "@/hooks/useSectionView";
 import { trackClick } from "@/utils/analytics";
-import { 
-  Github, 
-  ArrowUpRight, 
-  Layers, 
+import {
+  Github,
+  ArrowUpRight,
+  Layers,
   Smartphone, // Added missing import
-  Users, 
-  Clock 
+  Users,
+  Clock,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -22,10 +28,11 @@ const projects = [
     id: 1,
     title: "E-Commerce Platform",
     category: "Web Application",
-    description: "A scalable e-commerce architecture handling thousands of concurrent users with real-time inventory sync.",
+    description:
+      "A scalable e-commerce architecture handling thousands of concurrent users with real-time inventory sync.",
     image: "/images/project1.jpg",
     tags: ["Next.js", "Stripe", "Sanity", "Redis"],
-    theme: "#38bdf8", 
+    theme: "#38bdf8",
     github: "https://github.com",
     demo: "https://demo.com",
     stats: { label: "Users", value: "10k+" },
@@ -35,7 +42,8 @@ const projects = [
     id: 2,
     title: "Social Analytics",
     category: "Data Vis",
-    description: "Real-time dashboard for tracking social media engagement metrics.",
+    description:
+      "Real-time dashboard for tracking social media engagement metrics.",
     image: "/images/project2.jpg",
     tags: ["React", "D3.js", "Firebase"],
     theme: "#818cf8",
@@ -48,7 +56,8 @@ const projects = [
     id: 3,
     title: "Task Flow Mobile",
     category: "Mobile App",
-    description: "Collaborative task management tool for remote teams with offline support.",
+    description:
+      "Collaborative task management tool for remote teams with offline support.",
     image: "/images/project3.jpg",
     tags: ["Flutter", "Node.js", "MongoDB"],
     theme: "#4ade80",
@@ -61,7 +70,8 @@ const projects = [
     id: 4,
     title: "AI Art Generator",
     category: "AI Tool",
-    description: "Generates high-quality images from text prompts using OpenAI's DALL-E.",
+    description:
+      "Generates high-quality images from text prompts using OpenAI's DALL-E.",
     image: "/images/project4.jpg",
     tags: ["React Native", "OpenAI", "Python"],
     theme: "#f472b6",
@@ -81,10 +91,10 @@ const ProjectCard = ({
   setSelectedId: (id: number | null) => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 90%", "start 60%"]
+    offset: ["start 90%", "start 60%"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -106,10 +116,14 @@ const ProjectCard = ({
       onMouseMove={handleMouseMove}
       onClick={() => {
         setSelectedId(project.id);
-        trackClick("project_card_click", project.title, { project_id: project.id });
+        trackClick("project_card_click", project.title, {
+          project_id: project.id,
+        });
       }}
       className={`group relative rounded-[2rem] bg-background-dark border border-white/10 hover:border-white/20 overflow-hidden cursor-pointer transition-all duration-500 ${
-        project.featured ? "md:col-span-2 md:flex md:flex-row" : "col-span-1 flex flex-col"
+        project.featured
+          ? "md:col-span-2 md:flex md:flex-row"
+          : "col-span-1 flex flex-col"
       }`}
     >
       {/* Spotlight */}
@@ -127,67 +141,82 @@ const ProjectCard = ({
       />
 
       {/* Image Section */}
-      <div className={`relative overflow-hidden ${
-        project.featured ? "w-full md:w-[60%] h-[300px] md:h-[450px]" : "w-full h-[280px]"
-      }`}>
-         <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-         />
-         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-         
-         {/* Stats Badge Floating */}
-         <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2 text-sm font-medium text-white z-10">
-             {project.category === "Mobile App" ? <Smartphone size={14} /> : <Layers size={14} />}
-             {project.category}
-         </div>
+      <div
+        className={`relative overflow-hidden ${
+          project.featured
+            ? "w-full md:w-[60%] h-[300px] md:h-[450px]"
+            : "w-full h-[280px]"
+        }`}
+      >
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+
+        {/* Stats Badge Floating */}
+        <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2 text-sm font-medium text-white z-10">
+          {project.category === "Mobile App" ? (
+            <Smartphone size={14} />
+          ) : (
+            <Layers size={14} />
+          )}
+          {project.category}
+        </div>
       </div>
 
       {/* Content Section */}
-      <div className={`relative z-10 p-8 flex flex-col justify-between bg-white/[0.02] backdrop-blur-sm ${
-        project.featured ? "w-full md:w-[40%]" : "w-full flex-1"
-      }`}>
-         {/* Top Part */}
-         <div>
-            <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-text-light group-hover:text-secondary transition-colors">
-                    {project.title}
-                </h3>
-                <ArrowUpRight className="text-text-gray group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-            </div>
-            
-            <p className="text-text-gray leading-relaxed mb-6 line-clamp-3">
-                {project.description}
-            </p>
+      <div
+        className={`relative z-10 p-8 flex flex-col justify-between bg-white/[0.02] backdrop-blur-sm ${
+          project.featured ? "w-full md:w-[40%]" : "w-full flex-1"
+        }`}
+      >
+        {/* Top Part */}
+        <div>
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-text-light group-hover:text-secondary transition-colors">
+              {project.title}
+            </h3>
+            <ArrowUpRight className="text-text-gray group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+          </div>
 
-            {/* Quick Stat Row */}
-            <div className="flex items-center gap-4 mb-6 text-sm text-text-light/80">
-                <div className="flex items-center gap-1.5">
-                   <Users size={16} className="text-secondary" />
-                   <span>{project.stats.value} {project.stats.label}</span>
-                </div>
-                <div className="w-1 h-1 rounded-full bg-white/20" />
-                <div className="flex items-center gap-1.5">
-                   <Clock size={16} className="text-accent" />
-                   <span>Just Shipped</span>
-                </div>
-            </div>
-         </div>
+          <p className="text-text-gray leading-relaxed mb-6 line-clamp-3">
+            {project.description}
+          </p>
 
-         {/* Bottom Part: Tags */}
-         <div className="flex flex-wrap gap-2 mt-auto">
-             {project.tags.map(tag => (
-                 <span key={tag} className="text-xs font-medium px-3 py-1 rounded-full bg-white/5 text-text-light/70 border border-white/5">
-                     {tag}
-                 </span>
-             ))}
-         </div>
+          {/* Quick Stat Row */}
+          <div className="flex items-center gap-4 mb-6 text-sm text-text-light/80">
+            <div className="flex items-center gap-1.5">
+              <Users size={16} className="text-secondary" />
+              <span>
+                {project.stats.value} {project.stats.label}
+              </span>
+            </div>
+            <div className="w-1 h-1 rounded-full bg-white/20" />
+            <div className="flex items-center gap-1.5">
+              <Clock size={16} className="text-accent" />
+              <span>Just Shipped</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Part: Tags */}
+        <div className="flex flex-wrap gap-2 mt-auto">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs font-medium px-3 py-1 rounded-full bg-white/5 text-text-light/70 border border-white/5"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Colored Glow */}
-      <div 
+      <div
         className="absolute bottom-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-10 blur-[80px] transition-opacity duration-500 pointer-events-none"
         style={{ backgroundColor: project.theme }}
       />
@@ -209,29 +238,31 @@ const Projects = () => {
       id="projects"
       className="py-32 bg-background-dark relative overflow-hidden w-full flex justify-center"
     >
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      {/* Grid Pattern Background - Removed */}
 
       {/* Container constrained to 90% width */}
       <div className="w-[90%] max-w-[1600px] relative z-10">
-        
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-           <div>
-              <h2 className="text-4xl md:text-7xl font-bold text-text-light mb-6 tracking-tight">
-                 Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-purple-500">Works</span>
-              </h2>
-              <p className="text-xl text-text-gray max-w-2xl">
-                 Explorations in mobile architecture, immersive UI, and scalable backend systems.
-              </p>
-           </div>
-           <a 
-             href="https://github.com" 
-             className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
-           >
-              <Github size={20} />
-              <span>View Full Archive</span>
-           </a>
+          <div>
+            <h2 className="text-4xl md:text-7xl font-bold text-text-light mb-6 tracking-tight">
+              Selected{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-purple-500">
+                Works
+              </span>
+            </h2>
+            <p className="text-xl text-text-gray max-w-2xl">
+              Explorations in mobile architecture, immersive UI, and scalable
+              backend systems.
+            </p>
+          </div>
+          <a
+            href="https://github.com"
+            className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
+          >
+            <Github size={20} />
+            <span>View Full Archive</span>
+          </a>
         </div>
 
         {/* Bento Grid Layout */}
@@ -248,13 +279,13 @@ const Projects = () => {
 
         {/* Mobile Button */}
         <div className="mt-12 flex md:hidden justify-center">
-           <a 
-             href="https://github.com" 
-             className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
-           >
-              <Github size={20} />
-              <span>View Full Archive</span>
-           </a>
+          <a
+            href="https://github.com"
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
+          >
+            <Github size={20} />
+            <span>View Full Archive</span>
+          </a>
         </div>
       </div>
 

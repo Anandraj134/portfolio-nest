@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import FirebaseAnalytics from "@/components/FirebaseAnalytics";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -117,6 +118,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <SpeedInsights />
             <FirebaseAnalytics />
           </ClientWrapper>
         </SmoothScroll>

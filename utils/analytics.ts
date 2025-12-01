@@ -79,13 +79,13 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
 
     try {
       const firebaseConfig = {
-        // apiKey: "AIzaSyBfIQD9ACihHTav_j_P_8r9gXk1v5wfqu4",
-        // authDomain: "flutterfolio-acbad.firebaseapp.com",
-        // projectId: "flutterfolio-acbad",
-        // storageBucket: "flutterfolio-acbad.firebasestorage.app",
-        // messagingSenderId: "1053943827175",
-        // appId: "1:1053943827175:web:3bff699defd43ce958b042",
-        // measurementId: "G-GE9W7BQVK1",
+        apiKey: "AIzaSyBfIQD9ACihHTav_j_P_8r9gXk1v5wfqu4",
+        authDomain: "flutterfolio-acbad.firebaseapp.com",
+        projectId: "flutterfolio-acbad",
+        storageBucket: "flutterfolio-acbad.firebasestorage.app",
+        messagingSenderId: "1053943827175",
+        appId: "1:1053943827175:web:3bff699defd43ce958b042",
+        measurementId: "G-GE9W7BQVK1",
       };
 
       const app = initializeApp(firebaseConfig);

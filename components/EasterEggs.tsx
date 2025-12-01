@@ -38,7 +38,10 @@ const EasterEggs = () => {
   // Custom Toast Helper
   const showToast = (title: string, message: string) => {
     setNotification({ show: true, title, message });
-    setTimeout(() => setNotification((prev) => ({ ...prev, show: false })), 3000);
+    setTimeout(
+      () => setNotification((prev) => ({ ...prev, show: false })),
+      3000
+    );
   };
 
   useEffect(() => {
@@ -75,7 +78,7 @@ const EasterEggs = () => {
     // 3. Konami Code Listener
     const handleKeyDown = (e: KeyboardEvent) => {
       const newInput = [...input, e.key];
-      
+
       // Keep input buffer same length as code
       if (newInput.length > KONAMI_CODE.length) {
         newInput.shift();
@@ -92,7 +95,7 @@ const EasterEggs = () => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -101,7 +104,7 @@ const EasterEggs = () => {
       delete window.party;
       delete window.activeMatrix;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]); // Dependency on input is required for the closure to capture latest state
 
   const triggerKonamiParty = () => {
@@ -170,9 +173,7 @@ const EasterEggs = () => {
               <h4 className="text-sm font-bold text-white">
                 {notification.title}
               </h4>
-              <p className="text-xs text-gray-400">
-                {notification.message}
-              </p>
+              <p className="text-xs text-gray-400">{notification.message}</p>
             </div>
           </motion.div>
         )}
@@ -181,8 +182,10 @@ const EasterEggs = () => {
       {/* Matrix Mode Styles */}
       <style jsx global>{`
         .matrix-mode {
-          filter: contrast(1.2) brightness(0.8) sepia(1) hue-rotate(50deg) saturate(3);
-          font-family: 'Courier New', Courier, monospace !important;
+          filter: contrast(1.2) brightness(0.8) sepia(1) hue-rotate(50deg)
+            saturate(3);
+          font-family: var(--font-jetbrains-mono), "Courier New", Courier,
+            monospace !important;
         }
       `}</style>
     </>

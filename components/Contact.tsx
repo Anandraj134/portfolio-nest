@@ -24,7 +24,7 @@ interface InfoItemProps {
   icon: React.ReactNode;
   label: string;
   content: string;
-  href?: string; // marked as optional (?) to fix the missing property error
+  href?: string;
 }
 
 interface SocialButtonProps {
@@ -81,7 +81,7 @@ const Contact = () => {
           ref={containerRef}
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start"
         >
-          {/* Contact Info - Takes 1 column (approx 33%) */}
+          {/* Contact Info */}
           <motion.div
             style={{ opacity, y }}
             className="space-y-8 lg:col-span-1 lg:sticky lg:top-24"
@@ -111,7 +111,6 @@ const Contact = () => {
                   icon={<MapPin size={20} />}
                   label="Location"
                   content="San Francisco, CA"
-                  // href is omitted here, which is now allowed
                 />
               </div>
             </div>
@@ -123,17 +122,9 @@ const Contact = () => {
               <div className="flex gap-3 flex-wrap">
                 {[
                   { icon: <Github size={18} />, href: "#", label: "GitHub" },
-                  {
-                    icon: <Linkedin size={18} />,
-                    href: "#",
-                    label: "LinkedIn",
-                  },
+                  { icon: <Linkedin size={18} />, href: "#", label: "LinkedIn" },
                   { icon: <Twitter size={18} />, href: "#", label: "Twitter" },
-                  {
-                    icon: <Instagram size={18} />,
-                    href: "#",
-                    label: "Instagram",
-                  },
+                  { icon: <Instagram size={18} />, href: "#", label: "Instagram" },
                 ].map((social, index) => (
                   <SocialButton key={index} {...social} />
                 ))}
@@ -141,7 +132,7 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Contact Form - Takes 2 columns (approx 66%) */}
+          {/* Contact Form */}
           <motion.div
             style={{ opacity, y }}
             className="bg-secondary/5 p-8 md:p-10 rounded-3xl shadow-xl border border-secondary/10 lg:col-span-2 h-full"
@@ -162,10 +153,7 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label
-                      htmlFor="name"
-                      className="text-sm font-medium text-text-foreground dark:text-text-light"
-                    >
+                    <label htmlFor="name" className="text-sm font-medium text-text-foreground dark:text-text-light">
                       Name
                     </label>
                     <input
@@ -176,18 +164,11 @@ const Contact = () => {
                       className="w-full px-4 py-4 rounded-xl bg-black/20 border border-secondary/10 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all placeholder:text-gray-500"
                       placeholder="John Doe"
                     />
-                    <ValidationError
-                      prefix="Name"
-                      field="name"
-                      errors={state.errors}
-                    />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} />
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="text-sm font-medium text-text-foreground dark:text-text-light"
-                    >
+                    <label htmlFor="email" className="text-sm font-medium text-text-foreground dark:text-text-light">
                       Email
                     </label>
                     <input
@@ -198,19 +179,12 @@ const Contact = () => {
                       className="w-full px-4 py-4 rounded-xl bg-black/20 border border-secondary/10 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all placeholder:text-gray-500"
                       placeholder="john@example.com"
                     />
-                    <ValidationError
-                      prefix="Email"
-                      field="email"
-                      errors={state.errors}
-                    />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-medium text-text-foreground dark:text-text-light"
-                  >
+                  <label htmlFor="message" className="text-sm font-medium text-text-foreground dark:text-text-light">
                     Message
                   </label>
                   <textarea
@@ -218,43 +192,38 @@ const Contact = () => {
                     name="message"
                     required
                     rows={8}
-                    onFocus={() =>
-                      trackEvent("contact_field_focus", {
-                        field_name: "message",
-                      })
-                    }
+                    onFocus={() => trackEvent("contact_field_focus", { field_name: "message" })}
                     className="w-full px-4 py-4 rounded-xl bg-black/20 border border-secondary/10 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all resize-none placeholder:text-gray-500"
                     placeholder="Tell me about your project..."
                   />
-                  <ValidationError
-                    prefix="Message"
-                    field="message"
-                    errors={state.errors}
-                  />
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
                 </div>
 
-                <div className="pt-4">
-                  <MagneticWrapper className="w-full md:w-auto">
-                    <button
-                      type="submit"
-                      onClick={() =>
-                        trackClick(
-                          "contact_form_submit_attempt",
-                          "submit_button"
-                        )
-                      }
-                      disabled={state.submitting}
-                      className="w-full md:w-auto px-8 py-4 rounded-xl bg-secondary text-black font-bold hover:bg-secondary/90 transition-all transform active:scale-95 flex items-center justify-center gap-2 text-base"
-                    >
-                      {state.submitting ? (
-                        "Sending..."
-                      ) : (
-                        <>
-                          Send Message <Send size={18} />
-                        </>
-                      )}
-                    </button>
-                  </MagneticWrapper>
+                {/* 
+                   FIX APPLIED HERE:
+                   1. Removed `w-full` from MagneticWrapper to prevent it from stretching unexpectedly.
+                   2. Added `inline-block` to container to respect button size.
+                   3. Ensured button has padding instead of full width reliance.
+                */}
+                <div className="pt-4 flex justify-start">
+                  <div className="inline-block relative">
+                    <MagneticWrapper>
+                      <button
+                        type="submit"
+                        onClick={() => trackClick("contact_form_submit_attempt", "submit_button")}
+                        disabled={state.submitting}
+                        className="px-10 py-4 rounded-xl bg-secondary text-black font-bold hover:bg-secondary/90 transition-all transform active:scale-95 flex items-center justify-center gap-2 text-base whitespace-nowrap shadow-lg shadow-secondary/10"
+                      >
+                        {state.submitting ? (
+                          "Sending..."
+                        ) : (
+                          <>
+                            Send Message <Send size={18} />
+                          </>
+                        )}
+                      </button>
+                    </MagneticWrapper>
+                  </div>
                 </div>
               </form>
             )}
@@ -265,21 +234,16 @@ const Contact = () => {
   );
 };
 
-// Helper components with types applied
+// Helper components
 const InfoItem: React.FC<InfoItemProps> = ({ icon, label, content, href }) => (
   <div className="flex items-start gap-4 group">
     <div className="p-3 rounded-xl bg-secondary/5 text-secondary group-hover:bg-secondary/20 transition-colors">
       {icon}
     </div>
     <div>
-      <h4 className="text-sm font-bold text-text-foreground dark:text-text-light mb-1">
-        {label}
-      </h4>
+      <h4 className="text-sm font-bold text-text-foreground dark:text-text-light mb-1">{label}</h4>
       {href ? (
-        <a
-          href={href}
-          className="text-text-gray hover:text-secondary transition-colors block"
-        >
+        <a href={href} className="text-text-gray hover:text-secondary transition-colors block">
           {content}
         </a>
       ) : (
@@ -292,11 +256,7 @@ const InfoItem: React.FC<InfoItemProps> = ({ icon, label, content, href }) => (
 const SocialButton: React.FC<SocialButtonProps> = ({ icon, href, label }) => (
   <a
     href={href}
-    onClick={() =>
-      trackClick("contact_social_click", label, {
-        platform: label.toLowerCase(),
-      })
-    }
+    onClick={() => trackClick("contact_social_click", label, { platform: label.toLowerCase() })}
     className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/10 hover:bg-secondary hover:text-black hover:border-secondary transition-all duration-300"
     aria-label={label}
   >

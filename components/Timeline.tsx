@@ -4,44 +4,40 @@ import React, { useRef } from "react";
 import { useSectionView } from "@/hooks/useSectionView";
 import { trackEvent } from "@/utils/analytics";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import TextReveal from "./TextReveal";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Building2 } from "lucide-react";
 
+// --- Data ---
 const experiences = [
   {
     year: "2023 - Present",
-    title: "Senior Mobile Developer",
+    title: "Senior Mobile Architect",
     company: "Tech Innovations Inc.",
     description:
-      "Leading the mobile development team in building cross-platform applications using Flutter and React Native. Architected scalable solutions and improved app performance by 40%.",
-    techStack: ["Flutter", "React Native", "GraphQL", "CI/CD"],
+      "Leading the mobile engineering team. Architected a modular Flutter super-app that reduced build times by 40% and increased user retention by 25%.",
+    techStack: ["Flutter", "Dart", "Firebase", "Codemagic"],
+    color: "#38bdf8", // Cyan
   },
   {
     year: "2021 - 2023",
-    title: "Mobile App Developer",
-    company: "Creative Solutions Studio",
+    title: "Full Stack Developer",
+    company: "Creative Solutions",
     description:
-      "Developed and maintained multiple client applications. Collaborated with designers to implement pixel-perfect UIs and integrated complex RESTful APIs.",
-    techStack: ["React Native", "TypeScript", "Redux", "Firebase"],
+      "Developed scalable backend services using Node.js and integrated them with high-performance React Native frontends for fintech clients.",
+    techStack: ["React Native", "Node.js", "GraphQL", "AWS"],
+    color: "#818cf8", // Indigo
   },
   {
     year: "2019 - 2021",
-    title: "Junior Software Engineer",
-    company: "StartUp Hub",
+    title: "IoT Systems Engineer",
+    company: "Smart Connect",
     description:
-      "Contributed to the development of a fintech mobile app. Assisted in backend integration and wrote unit tests to ensure code reliability.",
-    techStack: ["JavaScript", "Node.js", "Express", "MongoDB"],
-  },
-  {
-    year: "2018 - 2019",
-    title: "Web Development Intern",
-    company: "Digital Agency",
-    description:
-      "Assisted in building responsive websites and landing pages. Gained hands-on experience with modern frontend frameworks and version control.",
-    techStack: ["HTML", "CSS", "JavaScript", "React"],
+      "Built real-time monitoring dashboards for industrial IoT sensors. Optimized data pipelines processing 1M+ events daily.",
+    techStack: ["Python", "MQTT", "React", "InfluxDB"],
+    color: "#4ade80", // Green
   },
 ];
 
+// --- Individual Card ---
 const ExperienceCard = ({
   exp,
   index,
@@ -50,22 +46,18 @@ const ExperienceCard = ({
   index: number;
 }) => {
   const ref = useRef(null);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 80%", "center center"],
+    offset: ["start 85%", "center center"],
   });
 
-  const scrollYProgressSpring = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const opacity = useTransform(scrollYProgressSpring, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgressSpring, [0, 1], [50, 0]);
-  const scale = useTransform(scrollYProgressSpring, [0, 1], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
+  
+  // Slide in from left or right based on index
   const x = useTransform(
-    scrollYProgressSpring,
+    scrollYProgress,
     [0, 1],
     [index % 2 === 0 ? 50 : -50, 0]
   );
@@ -73,94 +65,87 @@ const ExperienceCard = ({
   return (
     <div
       ref={ref}
-      className={`relative flex items-center justify-between mb-12 md:mb-24 ${
+      className={`relative flex items-center justify-between mb-20 md:mb-32 ${
         index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
       }`}
     >
-      {/* Spacer for alternating layout */}
-      <div className="hidden md:block w-5/12" />
+      {/* Empty Spacer for alignment */}
+      <div className="hidden md:block w-[45%]" />
 
-      {/* Dot */}
-      <motion.div
-        style={{ scale, x: "-50%", y: "-50%" }}
-        className="absolute left-4 md:left-1/2 top-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-bg-light dark:border-bg-dark shadow-[0_0_10px_rgba(var(--secondary),0.5)] z-10"
-      >
+      {/* Timeline Dot (Center) */}
+      <div className="absolute left-[22px] md:left-1/2 top-0 transform -translate-x-1/2 flex flex-col items-center z-20">
         <motion.div
-          className="absolute inset-0 rounded-full bg-secondary opacity-50"
-          animate={{ scale: [1, 1.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
+            style={{ scale: opacity }}
+            className="w-4 h-4 rounded-full bg-background-dark border-[3px] border-secondary shadow-[0_0_10px_rgba(100,255,218,0.8)] z-20"
         />
-      </motion.div>
+      </div>
 
       {/* Content Card */}
       <motion.div
         style={{ opacity, y, x }}
-        whileHover={{ scale: 1.02 }}
-        onHoverStart={() => {
-          trackEvent("experience_card_hover", {
-            company_name: exp.company,
-            role: exp.title,
-            index: index,
-          });
-        }}
-        className="w-full md:w-5/12 pl-12 md:pl-0"
+        className="w-full md:w-[45%] pl-16 md:pl-0"
       >
-        <div className="relative p-6 rounded-3xl bg-white/5 dark:bg-black/20 backdrop-blur-xl border border-white/10 dark:border-white/5 shadow-2xl overflow-hidden group hover:border-secondary/20 transition-all duration-300">
-          {/* iOS-style Blur Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div 
+            className="relative p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-secondary/30 transition-all duration-300 group hover:shadow-[0_0_30px_rgba(0,0,0,0.2)]"
+            onClick={() => trackEvent("experience_click", { company: exp.company })}
+        >
+            {/* Glow Effect */}
+            <div 
+                className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md -z-10"
+                style={{ background: `linear-gradient(to bottom right, ${exp.color}20, transparent)` }}
+            />
 
-          {/* Header with App Icon style */}
-          <div className="flex items-start justify-between mb-4 relative z-10">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-purple-600 flex items-center justify-center shadow-lg transform group-hover:scale-105 transition-transform duration-300">
-                <Briefcase className="text-white" size={20} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-text-foreground dark:text-text-light leading-tight">
-                  {exp.title}
+            {/* Header */}
+            <div className="flex flex-col gap-2 mb-6">
+                <div className="flex items-center justify-between">
+                    <span 
+                        className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 border border-white/5 text-secondary"
+                    >
+                        {exp.year}
+                    </span>
+                    <Briefcase size={18} className="text-text-gray" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-text-light group-hover:text-secondary transition-colors">
+                    {exp.title}
                 </h3>
-                <p className="text-sm text-secondary font-medium">
-                  {exp.company}
-                </p>
-              </div>
+                
+                <div className="flex items-center gap-2 text-text-gray font-medium">
+                    <Building2 size={16} />
+                    {exp.company}
+                </div>
             </div>
-            <div className="px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 backdrop-blur-md">
-              <span className="text-xs font-semibold text-secondary whitespace-nowrap">
-                {exp.year}
-              </span>
-            </div>
-          </div>
 
-          {/* Content */}
-          <div className="relative z-10 pl-1">
-            <p className="text-text-gray mb-6 text-sm leading-relaxed">
-              {exp.description}
+            {/* Description */}
+            <p className="text-text-gray/80 leading-relaxed mb-6">
+                {exp.description}
             </p>
 
-            {/* Tech Stack Pills */}
+            {/* Tech Stack */}
             <div className="flex flex-wrap gap-2">
-              {exp.techStack.map((tech, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1.5 text-xs font-medium rounded-xl bg-white/10 dark:bg-white/5 text-text-gray border border-white/10 hover:bg-secondary/10 hover:text-secondary hover:border-secondary/20 transition-all duration-300"
-                >
-                  {tech}
-                </span>
-              ))}
+                {exp.techStack.map((tech, i) => (
+                    <span 
+                        key={i} 
+                        className="px-3 py-1.5 text-xs font-medium rounded-lg bg-background-dark border border-white/10 text-text-light/70 group-hover:border-secondary/20 group-hover:text-secondary transition-colors"
+                    >
+                        {tech}
+                    </span>
+                ))}
             </div>
-          </div>
         </div>
       </motion.div>
     </div>
   );
 };
 
+// --- Main Component ---
 const Timeline = () => {
   const { ref } = useSectionView({ sectionName: "experience" });
   const containerRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 90%", "end 50%"],
+    offset: ["start 80%", "end 50%"],
   });
 
   const scrollYProgressSpring = useSpring(scrollYProgress, {
@@ -175,38 +160,42 @@ const Timeline = () => {
     <section
       ref={ref}
       id="experience"
-      className="py-20 bg-bg-light dark:bg-bg-dark transition-colors duration-300 overflow-hidden  w-[90%]"
+      className="py-32 bg-background-dark relative overflow-hidden w-full flex justify-center"
     >
-      <div className="max-w-7xl mx-auto px-6">
+       {/* Background Grid */}
+       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
+      <div className="w-[90%] max-w-6xl relative z-10">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-24 text-center"
         >
-          <TextReveal
-            text="Experience"
-            className="text-3xl md:text-5xl font-bold text-text-foreground dark:text-text-light mb-4 justify-center"
-          />
-          <motion.p className="text-text-gray text-lg max-w-2xl mx-auto">
-            My journey through the tech industry, building impactful solutions
-            along the way.
-          </motion.p>
+          <h2 className="text-4xl md:text-6xl font-bold text-text-light mb-6">
+            Professional <span className="text-secondary">Journey</span>
+          </h2>
+          <p className="text-lg text-text-gray max-w-2xl mx-auto">
+            Building scalable systems and mobile experiences at the intersection of design and engineering.
+          </p>
         </motion.div>
 
-        <div ref={containerRef} className="relative max-w-4xl mx-auto">
-          {/* Central Line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-transparent dark:bg-transparent -translate-x-1/2">
+        {/* Timeline Container */}
+        <div ref={containerRef} className="relative">
+          
+          {/* Central Progress Line */}
+          <div className="absolute left-[22px] md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 -translate-x-1/2">
             <motion.div
               style={{ height }}
-              className="relative w-full bg-gradient-to-b from-secondary via-purple-500 to-secondary"
+              className="relative w-full bg-gradient-to-b from-secondary via-purple-500 to-secondary origin-top"
             >
-              {/* Glowing Tip */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary rounded-full shadow-[0_0_15px_rgba(var(--secondary),1)] blur-[1px]" />
+               {/* Glowing Tip that follows scroll */}
+               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-secondary rounded-full shadow-[0_0_20px_rgba(100,255,218,0.8)] blur-[2px]" />
             </motion.div>
           </div>
 
+          {/* Experience Items */}
           {experiences.map((exp, index) => (
             <ExperienceCard key={index} exp={exp} index={index} />
           ))}

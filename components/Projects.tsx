@@ -2,11 +2,17 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useSectionView } from "@/hooks/useSectionView";
 import { trackClick } from "@/utils/analytics";
-import TextReveal from "./TextReveal";
-import { Github, ExternalLink } from "lucide-react";
+import { 
+  Github, 
+  ArrowUpRight, 
+  Layers, 
+  Smartphone, // Added missing import
+  Users, 
+  Clock 
+} from "lucide-react";
 import dynamic from "next/dynamic";
 
 const ProjectModal = dynamic(() => import("./ProjectModal"), { ssr: false });
@@ -15,200 +21,176 @@ const projects = [
   {
     id: 1,
     title: "E-Commerce Platform",
-    description:
-      "A full-featured e-commerce application built with Next.js, Stripe, and Sanity CMS.",
+    category: "Web Application",
+    description: "A scalable e-commerce architecture handling thousands of concurrent users with real-time inventory sync.",
     image: "/images/project1.jpg",
-    tags: ["Next.js", "TypeScript", "Stripe", "Sanity"],
+    tags: ["Next.js", "Stripe", "Sanity", "Redis"],
+    theme: "#38bdf8", 
     github: "https://github.com",
     demo: "https://demo.com",
-    features: [
-      "Real-time inventory management",
-      "Secure payment processing with Stripe",
-      "User authentication and order history",
-      "Responsive design for all devices",
-    ],
-    challenges:
-      "Implementing complex state management for the shopping cart and ensuring secure payment transactions were key challenges.",
+    stats: { label: "Users", value: "10k+" },
+    featured: true,
   },
   {
     id: 2,
-    title: "Social Media Dashboard",
-    description:
-      "A real-time social media dashboard for tracking analytics and engagement.",
+    title: "Social Analytics",
+    category: "Data Vis",
+    description: "Real-time dashboard for tracking social media engagement metrics.",
     image: "/images/project2.jpg",
-    tags: ["React", "Redux", "Chart.js", "Firebase"],
+    tags: ["React", "D3.js", "Firebase"],
+    theme: "#818cf8",
     github: "https://github.com",
     demo: "https://demo.com",
-    features: [
-      "Real-time data visualization",
-      "Customizable dashboard widgets",
-      "Social media API integration",
-      "Dark/Light mode support",
-    ],
-    challenges:
-      "Handling large datasets and ensuring smooth chart animations required optimizing rendering performance.",
+    stats: { label: "Data Points", value: "1M+" },
+    featured: false,
   },
   {
     id: 3,
-    title: "Task Management App",
-    description:
-      "A collaborative task management tool with real-time updates and team features.",
+    title: "Task Flow Mobile",
+    category: "Mobile App",
+    description: "Collaborative task management tool for remote teams with offline support.",
     image: "/images/project3.jpg",
-    tags: ["Vue.js", "Node.js", "Socket.io", "MongoDB"],
+    tags: ["Flutter", "Node.js", "MongoDB"],
+    theme: "#4ade80",
     github: "https://github.com",
     demo: "https://demo.com",
-    features: [
-      "Real-time collaboration",
-      "Drag and drop task organization",
-      "Team chat and notifications",
-      "File attachment support",
-    ],
-    challenges:
-      "Synchronizing state across multiple clients in real-time using WebSockets was a complex implementation detail.",
+    stats: { label: "Downloads", value: "5k+" },
+    featured: false,
   },
   {
     id: 4,
-    title: "AI Image Generator",
-    description:
-      "An application that uses OpenAI's DALL-E API to generate images from text prompts.",
+    title: "AI Art Generator",
+    category: "AI Tool",
+    description: "Generates high-quality images from text prompts using OpenAI's DALL-E.",
     image: "/images/project4.jpg",
-    tags: ["React", "OpenAI API", "Tailwind CSS"],
+    tags: ["React Native", "OpenAI", "Python"],
+    theme: "#f472b6",
     github: "https://github.com",
     demo: "https://demo.com",
-    features: [
-      "Integration with DALL-E API",
-      "Image gallery and history",
-      "Download and share functionality",
-      "Prompt optimization suggestions",
-    ],
-    challenges:
-      "Managing API rate limits and handling asynchronous image generation requests efficiently.",
+    stats: { label: "Generated", value: "50k+" },
+    featured: false,
   },
 ];
 
 const ProjectCard = ({
   project,
-  index,
   setSelectedId,
 }: {
   project: (typeof projects)[0];
   index: number;
   setSelectedId: (id: number | null) => void;
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 75%", "start 30%"]
+    offset: ["start 90%", "start 60%"]
   });
+  const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  const scrollYProgressSpring = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  // Spotlight Effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  const opacity = useTransform(scrollYProgressSpring, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgressSpring, [0, 1], [80, 0]);
-  const scale = useTransform(scrollYProgressSpring, [0, 1], [0.85, 1]);
-  const rotate = useTransform(
-    scrollYProgressSpring,
-    [0, 1],
-    [index % 2 === 0 ? 3 : -3, 0]
-  );
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
 
   return (
     <motion.div
       ref={ref}
-      layoutId={`card-${project.id}`}
+      style={{ opacity, y }}
+      onMouseMove={handleMouseMove}
       onClick={() => {
         setSelectedId(project.id);
-        trackClick("project_card_click", project.title, {
-          project_id: project.id,
-        });
+        trackClick("project_card_click", project.title, { project_id: project.id });
       }}
-      style={{ opacity, y, scale, rotate }}
-      className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-secondary/50 transition-colors cursor-pointer shadow-lg hover:shadow-xl duration-300"
+      className={`group relative rounded-[2rem] bg-background-dark border border-white/10 hover:border-white/20 overflow-hidden cursor-pointer transition-all duration-500 ${
+        project.featured ? "md:col-span-2 md:flex md:flex-row" : "col-span-1 flex flex-col"
+      }`}
     >
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent card click from firing
-              setSelectedId(project.id);
-              trackClick("project_card_button_click", project.title, {
-                project_id: project.id,
-              });
-            }}
-            className="px-6 py-2 bg-secondary text-black font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 min-h-[44px]"
-            aria-label={`View details for ${project.title}`}
-          >
-            View Details
-          </button>
-        </div>
+      {/* Spotlight */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-300 group-hover:opacity-100 z-20"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              600px circle at ${mouseX}px ${mouseY}px,
+              rgba(255, 255, 255, 0.05),
+              transparent 40%
+            )
+          `,
+        }}
+      />
+
+      {/* Image Section */}
+      <div className={`relative overflow-hidden ${
+        project.featured ? "w-full md:w-[60%] h-[300px] md:h-[450px]" : "w-full h-[280px]"
+      }`}>
+         <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+         />
+         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+         
+         {/* Stats Badge Floating */}
+         <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2 text-sm font-medium text-white z-10">
+             {project.category === "Mobile App" ? <Smartphone size={14} /> : <Layers size={14} />}
+             {project.category}
+         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-2xl font-bold text-text-foreground dark:text-text-light mb-2">
-          {project.title}
-        </h3>
-        <p className="text-text-gray mb-4 line-clamp-2">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 text-xs rounded-full bg-secondary/10 text-secondary border border-secondary/20"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-secondary/10">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-text-gray hover:text-secondary transition-colors min-h-[44px]"
-            aria-label={`View ${project.title} source code on GitHub`}
-            onClick={(e) => {
-              e.stopPropagation();
-              trackClick("project_github_link", project.title, {
-                project_id: project.id,
-              });
-            }}
-          >
-            <Github size={18} />
-            <span className="text-sm">Code</span>
-          </a>
-          <a
-            href={project.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-text-gray hover:text-secondary transition-colors min-h-[44px]"
-            aria-label={`View live demo of ${project.title}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              trackClick("project_demo_link", project.title, {
-                project_id: project.id,
-              });
-            }}
-          >
-            <ExternalLink size={18} />
-            <span className="text-sm">Demo</span>
-          </a>
-        </div>
+      {/* Content Section */}
+      <div className={`relative z-10 p-8 flex flex-col justify-between bg-white/[0.02] backdrop-blur-sm ${
+        project.featured ? "w-full md:w-[40%]" : "w-full flex-1"
+      }`}>
+         {/* Top Part */}
+         <div>
+            <div className="flex justify-between items-start mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-text-light group-hover:text-secondary transition-colors">
+                    {project.title}
+                </h3>
+                <ArrowUpRight className="text-text-gray group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+            </div>
+            
+            <p className="text-text-gray leading-relaxed mb-6 line-clamp-3">
+                {project.description}
+            </p>
+
+            {/* Quick Stat Row */}
+            <div className="flex items-center gap-4 mb-6 text-sm text-text-light/80">
+                <div className="flex items-center gap-1.5">
+                   <Users size={16} className="text-secondary" />
+                   <span>{project.stats.value} {project.stats.label}</span>
+                </div>
+                <div className="w-1 h-1 rounded-full bg-white/20" />
+                <div className="flex items-center gap-1.5">
+                   <Clock size={16} className="text-accent" />
+                   <span>Just Shipped</span>
+                </div>
+            </div>
+         </div>
+
+         {/* Bottom Part: Tags */}
+         <div className="flex flex-wrap gap-2 mt-auto">
+             {project.tags.map(tag => (
+                 <span key={tag} className="text-xs font-medium px-3 py-1 rounded-full bg-white/5 text-text-light/70 border border-white/5">
+                     {tag}
+                 </span>
+             ))}
+         </div>
       </div>
+
+      {/* Colored Glow */}
+      <div 
+        className="absolute bottom-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-10 blur-[80px] transition-opacity duration-500 pointer-events-none"
+        style={{ backgroundColor: project.theme }}
+      />
     </motion.div>
   );
 };
@@ -225,21 +207,35 @@ const Projects = () => {
     <section
       ref={ref}
       id="projects"
-      className="py-20 bg-bg-light dark:bg-bg-dark transition-colors duration-300"
+      className="py-32 bg-background-dark relative overflow-hidden w-full flex justify-center"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16 text-center">
-          <TextReveal
-            text="Featured Projects"
-            className="text-3xl md:text-5xl font-bold text-text-foreground dark:text-text-light mb-4 justify-center"
-          />
-          <motion.p className="text-text-gray text-lg max-w-2xl mx-auto">
-            A selection of my recent work, showcasing my expertise in mobile and
-            web development.
-          </motion.p>
+      {/* Grid Pattern Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+      {/* Container constrained to 90% width */}
+      <div className="w-[90%] max-w-[1600px] relative z-10">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+           <div>
+              <h2 className="text-4xl md:text-7xl font-bold text-text-light mb-6 tracking-tight">
+                 Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-purple-500">Works</span>
+              </h2>
+              <p className="text-xl text-text-gray max-w-2xl">
+                 Explorations in mobile architecture, immersive UI, and scalable backend systems.
+              </p>
+           </div>
+           <a 
+             href="https://github.com" 
+             className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
+           >
+              <Github size={20} />
+              <span>View Full Archive</span>
+           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -248,6 +244,17 @@ const Projects = () => {
               setSelectedId={setSelectedId}
             />
           ))}
+        </div>
+
+        {/* Mobile Button */}
+        <div className="mt-12 flex md:hidden justify-center">
+           <a 
+             href="https://github.com" 
+             className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
+           >
+              <Github size={20} />
+              <span>View Full Archive</span>
+           </a>
         </div>
       </div>
 

@@ -202,11 +202,11 @@ const About = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs font-bold text-text-light">
-                    Open to Work
+                    I’d love to collaborate
                   </span>
-                  <span className="text-[10px] text-text-gray">
+                  {/* <span className="text-[10px] text-text-gray">
                     Available Immediately
-                  </span>
+                  </span> */}
                 </div>
               </motion.div>
 
@@ -216,7 +216,7 @@ const About = () => {
                 className="absolute top-12 -right-4 md:right-4 bg-secondary/10 backdrop-blur-md p-3 rounded-xl border border-secondary/20 shadow-lg z-30"
               >
                 <span className="text-xs font-bold text-secondary tracking-wide">
-                  IoT & Mobile Dev
+                  Mobile Developer
                 </span>
               </motion.div>
 

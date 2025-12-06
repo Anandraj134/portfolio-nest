@@ -136,7 +136,7 @@ const Hero = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
           </span>
-          Available for new projects
+          Let’s build your next mobile product.
         </motion.div>
 
         {/* Greeting */}
@@ -157,7 +157,7 @@ const Hero = () => {
 
         {/* Role Glitch */}
         <div className="text-2xl md:text-4xl text-text-gray mb-8 font-light flex flex-col md:flex-row items-center justify-center gap-3">
-          <span>I architect</span>
+          <span>I Craft</span>
           <div className="font-semibold text-text-light">
             <GlitchText />
           </div>
@@ -170,11 +170,9 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-base md:text-lg text-text-gray mb-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Transforming ideas into high-performance{" "}
+          From idea to execution - I build fast, fluid{" "}
           <span className="text-secondary">iOS</span> &{" "}
-          <span className="text-secondary">Android</span> applications. I
-          specialize in building pixel-perfect, fluid mobile experiences using
-          Flutter and React Native.
+          <span className="text-secondary">Android</span> apps using Flutter and React Native, engineered for real performance and scale.
         </motion.p>
 
         {/* Buttons */}

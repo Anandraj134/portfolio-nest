@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const words = [
-  "Mobile Experiences",
-  "IoT Ecosystems",
-  "Scalable Systems",
-  "Digital Solutions",
+  "Next-Gen Mobile Apps",
+  "Intelligent User Experiences",
+  "Realtime Experiences",
+  "High-Performance Solutions",
 ];
 
 const GlitchText = () => {

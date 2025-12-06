@@ -86,10 +86,10 @@ const Navbar = () => {
             href="#"
             className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-600 min-w-[44px] min-h-[44px] flex items-center"
             aria-label="Anand Patel Portfolio Home"
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileHover={{ scale: 1.1, color: "var(--secondary)" }}
             whileTap={{ scale: 0.9 }}
           >
-            AP
+            Anand Patel
           </motion.a>
 
           {/* Desktop Menu */}

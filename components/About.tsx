@@ -39,36 +39,36 @@ const About = () => {
   };
 
   // Fresher-focused highlights
-  // Fresher-focused highlights
   const highlights = [
     {
-      label: "Experience",
-      value: "2.5+",
-      suffix: "Years",
-      desc: "Continuous Learning",
-    },
-    {
-      label: "Projects",
+      label: "Releases",
       value: "03",
-      suffix: "Real-World",
-      desc: "Delivered to Clients",
+      suffix: "Apps",
+      desc: "iOS & Android production",
     },
     {
-      label: "Clients",
-      value: "02",
-      suffix: "Happy",
-      desc: "Collaborations",
+      label: "Stability",
+      value: "99.5%",
+      suffix: "Quality",
+      desc: "Crash-free performance",
+    },
+    {
+      label: "Delivery",
+      value: "100%",
+      suffix: "On-Time",
+      desc: "Reliable execution",
     },
   ];
 
-  const techStack = [
-    "Flutter",
-    "React Native",
-    "Node.js",
-    "Azure",
-    "IoT",
-    "Python",
-  ];
+  // const techStack = [
+  //   "Flutter",
+  //   "React Native",
+  //   "Firebase (Auth, Firestore, Functions)",
+  //   "Node.js",
+  //   "Auth0",
+  //   "SignalR Realtime",
+  //   "In-App Subscriptions",
+  // ];
 
   return (
     <section
@@ -104,12 +104,19 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                I am a passionate{" "}
-                <strong className="text-secondary">Full-Stack Developer</strong>{" "}
-                eager to build meaningful solutions. While I am early in my
-                journey, I bring a strong foundation in{" "}
-                <strong className="text-secondary">Mobile Development</strong>{" "}
-                and <strong className="text-secondary">IoT Systems</strong>.
+                I’m a{" "}
+                <strong className="text-secondary">
+                  Mobile & Full-Stack Engineer
+                </strong>{" "}
+                who designs and ships production-ready{" "}
+                <strong className="text-secondary">iOS</strong> and{" "}
+                <strong className="text-secondary">Android</strong> apps using
+                Flutter and React Native. I focus on building fast, reliable,
+                and scalable experiences backed by secure{" "}
+                <strong className="text-secondary">
+                  Firebase, Auth, and cloud architectures
+                </strong>
+                .
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -117,17 +124,27 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Over the last{" "}
-                <strong className="text-text-light">2.5+ years</strong>, I have
-                successfully delivered{" "}
-                <strong className="text-text-light">3 major projects</strong>{" "}
-                for <strong className="text-text-light">2 clients</strong>,
-                focusing on quality and performance. I am constantly learning
-                and adapting to new technologies to solve real-world problems.
+                Over the past few years, I’ve led the engineering of{" "}
+                <strong className="text-secondary">BharatLaw.ai</strong> and{" "}
+                <strong className="text-secondary">YankiAI</strong>—solving
+                challenges across real-time communication, subscriptions, media
+                streaming, security, app-store compliance, and performance
+                optimization. My work spans{" "}
+                <strong className="text-secondary">
+                  AI-enabled applications
+                </strong>
+                ,{" "}
+                <strong className="text-secondary">mobile architecture</strong>,
+                and{" "}
+                <strong className="text-secondary">
+                  feature-rich product ecosystems
+                </strong>
+                , with a focus on clean engineering and long-term
+                maintainability.
               </motion.p>
             </div>
 
-            {/* Tech Stack Pills */}
+            {/* Tech Stack Pills
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +160,7 @@ const About = () => {
                   {tech}
                 </span>
               ))}
-            </motion.div>
+            </motion.div> */}
 
             {/* Highlight Cards */}
             <div className="grid grid-cols-3 gap-4 pt-4">

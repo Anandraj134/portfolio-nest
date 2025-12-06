@@ -1,313 +1,3 @@
-// "use client";
-
-// import React, { useState, useEffect, useRef } from "react";
-// import { useSectionView } from "@/hooks/useSectionView";
-// import { trackClick, trackEvent } from "@/utils/analytics";
-// import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-// import {
-//   Smartphone,
-//   Code2,
-//   Terminal,
-//   Zap,
-//   Cloud,
-//   Layers,
-//   PenTool,
-//   Globe,
-//   Settings,
-//   Database,
-//   Box,
-//   Wifi,
-//   Server,
-//   Layout,
-// } from "lucide-react";
-
-// // Skill Data
-// const skills = [
-//   {
-//     category: "Advanced",
-//     items: [
-//       {
-//         name: "Flutter",
-//         icon: <Smartphone size={32} />,
-//         level: "Advanced",
-//         desc: "Building high-performance cross-platform apps.",
-//       },
-//       {
-//         name: "React Native",
-//         icon: <Code2 size={32} />,
-//         level: "Advanced",
-//         desc: "Native-like experiences with JavaScript.",
-//       },
-//       {
-//         name: "Kotlin",
-//         icon: <Terminal size={32} />,
-//         level: "Advanced",
-//         desc: "Modern Android development.",
-//       },
-//       {
-//         name: "Swift",
-//         icon: <Zap size={32} />,
-//         level: "Advanced",
-//         desc: "Native iOS development.",
-//       },
-//       {
-//         name: "Firebase",
-//         icon: <Cloud size={32} />,
-//         level: "Advanced",
-//         desc: "Real-time databases and serverless backend.",
-//       },
-//       {
-//         name: "Clean Arch",
-//         icon: <Layers size={32} />,
-//         level: "Advanced",
-//         desc: "Scalable and maintainable code structure.",
-//       },
-//     ],
-//   },
-//   {
-//     category: "Intermediate",
-//     items: [
-//       {
-//         name: "UI/UX",
-//         icon: <PenTool size={28} />,
-//         level: "Intermediate",
-//         desc: "Creating intuitive and beautiful interfaces.",
-//       },
-//       {
-//         name: "GraphQL",
-//         icon: <Globe size={28} />,
-//         level: "Intermediate",
-//         desc: "Efficient data querying.",
-//       },
-//       {
-//         name: "State Mgmt",
-//         icon: <Settings size={28} />,
-//         level: "Intermediate",
-//         desc: "Redux, Bloc, Provider, Riverpod.",
-//       },
-//       {
-//         name: "Local DB",
-//         icon: <Database size={28} />,
-//         level: "Intermediate",
-//         desc: "Room, Hive, SQLite for offline apps.",
-//       },
-//       {
-//         name: "Testing",
-//         icon: <Box size={28} />,
-//         level: "Intermediate",
-//         desc: "Unit, Widget, and Integration testing.",
-//       },
-//       {
-//         name: "Push Notifs",
-//         icon: <Wifi size={28} />,
-//         level: "Intermediate",
-//         desc: "Engaging users with timely updates.",
-//       },
-//     ],
-//   },
-//   {
-//     category: "Beginner",
-//     items: [
-//       {
-//         name: "Docker",
-//         icon: <Box size={24} />,
-//         level: "Beginner",
-//         desc: "Containerization basics.",
-//       },
-//       {
-//         name: "Backend",
-//         icon: <Server size={24} />,
-//         level: "Beginner",
-//         desc: "Node.js and API fundamentals.",
-//       },
-//       {
-//         name: "Design Systems",
-//         icon: <Layout size={24} />,
-//         level: "Beginner",
-//         desc: "Consistent UI components.",
-//       },
-//       {
-//         name: "Motion",
-//         icon: <Zap size={24} />,
-//         level: "Beginner",
-//         desc: "Fluid app animations.",
-//       },
-//     ],
-//   },
-// ];
-
-// const Skills = () => {
-//   const { ref: sectionRef } = useSectionView({ sectionName: "skills" });
-//   const [headerText, setHeaderText] = useState("Technologies I Build With");
-
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       setHeaderText("Tools That Power My Mobile Apps");
-//     }, 4000);
-//     return () => clearTimeout(timer);
-//   }, []);
-
-//   return (
-//     <section
-//       ref={sectionRef} // Added ref to section
-//       id="skills"
-//       className="py-24 bg-bg-light dark:bg-bg-dark transition-colors duration-300 overflow-hidden relative w-[90%]"
-//     >
-//       {/* Background Elements */}
-//       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-//         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-//         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-//       </div>
-
-//       <div className="w-full px-4 md:px-12 relative z-10">
-//         {/* Header */}
-//         <div className="mb-20 text-center">
-//           <motion.h2
-//             key={headerText}
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             exit={{ opacity: 0, y: -20 }}
-//             transition={{ duration: 0.8 }}
-//             className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-500 mb-4"
-//           >
-//             {headerText}
-//           </motion.h2>
-//           <motion.div
-//             initial={{ width: 0 }}
-//             whileInView={{ width: "100px" }}
-//             className="h-1 bg-secondary mx-auto rounded-full"
-//           />
-//         </div>
-
-//         {/* Skills Grid */}
-//         <div className="space-y-16">
-//           {skills.map((category, catIndex) => (
-//             <div key={category.category}>
-//               <motion.h3
-//                 initial={{ opacity: 0, x: -20 }}
-//                 whileInView={{ opacity: 1, x: 0 }}
-//                 viewport={{ once: true }}
-//                 transition={{ delay: catIndex * 0.2 }}
-//                 className={`text-2xl font-bold mb-8 pl-4 border-l-4 ${
-//                   category.category === "Advanced"
-//                     ? "border-green-500 text-green-400"
-//                     : category.category === "Intermediate"
-//                     ? "border-blue-500 text-blue-400"
-//                     : "border-yellow-500 text-yellow-400"
-//                 }`}
-//               >
-//                 {category.category} Skills
-//               </motion.h3>
-
-//               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-//                 {category.items.map((skill, index) => (
-//                   <motion.div // Added motion.div wrapper for skill card
-//                     key={skill.name}
-//                     layout
-//                     initial={{ opacity: 0, scale: 0.8 }}
-//                     animate={{ opacity: 1, scale: 1 }}
-//                     exit={{ opacity: 0, scale: 0.8 }}
-//                     transition={{ duration: 0.3 }}
-//                     onHoverStart={() => {
-//                       trackEvent("skill_hover", {
-//                         skill_name: skill.name,
-//                         level: skill.level,
-//                         section: "skills",
-//                       });
-//                     }}
-//                     className="group relative"
-//                   >
-//                     <SkillCard key={skill.name} skill={skill} index={index} />
-//                   </motion.div>
-//                 ))}
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// interface Skill {
-//   name: string;
-//   icon: React.ReactNode;
-//   level: string;
-//   desc: string;
-// }
-
-// const SkillCard = ({ skill }: { skill: Skill; index: number }) => {
-//   const [isFlipped, setIsFlipped] = useState(false);
-//   const ref = useRef(null);
-
-//   const { scrollYProgress } = useScroll({
-//     target: ref,
-//     offset: ["start 90%", "end 60%"],
-//   });
-
-//   const scrollYProgressSpring = useSpring(scrollYProgress, {
-//     stiffness: 100,
-//     damping: 30,
-//     restDelta: 0.001,
-//   });
-
-//   const opacity = useTransform(scrollYProgressSpring, [0, 1], [0, 1]);
-//   const y = useTransform(scrollYProgressSpring, [0, 1], [100, 0]);
-//   const scale = useTransform(scrollYProgressSpring, [0, 1], [0.8, 1]);
-//   const rotate = useTransform(scrollYProgressSpring, [0, 1], [-5, 0]);
-
-//   return (
-//     <motion.div
-//       ref={ref}
-//       style={{ opacity, y, scale, rotate }}
-//       className="h-[200px] w-full [perspective:1000px] cursor-pointer group"
-//       onClick={() => {
-//         setIsFlipped(!isFlipped);
-//         trackClick("skill_card_click", skill.name, {
-//           level: skill.level,
-//           section: "skills",
-//         });
-//       }}
-//       onMouseEnter={() => setIsFlipped(true)}
-//       onMouseLeave={() => setIsFlipped(false)}
-//     >
-//       <motion.div
-//         className="relative w-full h-full transition-all duration-500 [transform-style:preserve-3d]"
-//         animate={{ rotateY: isFlipped ? 180 : 0 }}
-//       >
-//         {/* Front */}
-//         <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl bg-secondary/5 backdrop-blur-md border border-secondary/10 p-6 flex flex-col items-center justify-center gap-4 shadow-lg group-hover:shadow-secondary/20 transition-shadow">
-//           <div
-//             className={`p-4 rounded-2xl ${
-//               skill.level === "Advanced"
-//                 ? "bg-green-500/10 text-green-400"
-//                 : skill.level === "Intermediate"
-//                 ? "bg-blue-500/10 text-blue-400"
-//                 : "bg-yellow-500/10 text-yellow-400"
-//             }`}
-//           >
-//             {skill.icon}
-//           </div>
-//           <h4 className="text-xl font-bold text-text-light">{skill.name}</h4>
-//           <span className="text-xs text-gray-400 uppercase tracking-wider">
-//             {skill.level}
-//           </span>
-//         </div>
-
-//         {/* Back */}
-//         <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl bg-secondary/10 backdrop-blur-md border border-secondary/20 p-6 flex flex-col items-center justify-center text-center shadow-lg">
-//           <h4 className="text-lg font-bold text-secondary mb-2">
-//             {skill.name}
-//           </h4>
-//           <p className="text-sm text-gray-200">{skill.desc}</p>
-//         </div>
-//       </motion.div>
-//     </motion.div>
-//   );
-// };
-
-// export default Skills;
-
 "use client";
 
 import React, { useState } from "react";
@@ -317,24 +7,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Smartphone,
   Code2,
-  Terminal,
   Zap,
   Cloud,
-  Layers,
-  PenTool,
   Globe,
   Settings,
   Database,
-  Box,
   Wifi,
   Server,
-  Layout,
   Cpu,
+  CreditCard,
+  GitBranch,
+  Shield,
+  Bell,
+  Box,
+  Layers,
+  Layout,
+  PieChart,
+  Terminal,
 } from "lucide-react";
 
 // --- Types & Data ---
 
-type SkillCategory = "All" | "Mobile" | "Backend" | "Design" | "Tools" | "Core";
+type SkillCategory = "All" | "Mobile" | "Backend" | "Database" | "State" | "Cloud" | "Tools";
 
 interface Skill {
   name: string;
@@ -362,19 +56,26 @@ const categoryStyles: Record<
     glow: "shadow-[0_0_15px_rgba(52,211,153,0.3)]",
     icon: "text-emerald-400",
   },
-  Design: {
-    text: "text-pink-400",
-    border: "border-pink-500/20 group-hover:border-pink-500/50",
-    bg: "bg-pink-500/10",
-    glow: "shadow-[0_0_15px_rgba(244,114,182,0.3)]",
-    icon: "text-pink-400",
+  Database: {
+    text: "text-purple-400",
+    border: "border-purple-500/20 group-hover:border-purple-500/50",
+    bg: "bg-purple-500/10",
+    glow: "shadow-[0_0_15px_rgba(192,132,252,0.3)]",
+    icon: "text-purple-400",
   },
-  Core: {
+  State: {
     text: "text-amber-400",
     border: "border-amber-500/20 group-hover:border-amber-500/50",
     bg: "bg-amber-500/10",
     glow: "shadow-[0_0_15px_rgba(251,191,36,0.3)]",
     icon: "text-amber-400",
+  },
+  Cloud: {
+    text: "text-cyan-400",
+    border: "border-cyan-500/20 group-hover:border-cyan-500/50",
+    bg: "bg-cyan-500/10",
+    glow: "shadow-[0_0_15px_rgba(34,211,238,0.3)]",
+    icon: "text-cyan-400",
   },
   Tools: {
     text: "text-violet-400",
@@ -398,105 +99,197 @@ const skillsData: Skill[] = [
     name: "Flutter",
     icon: <Smartphone size={32} />,
     category: "Mobile",
-    desc: "High-performance cross-platform apps.",
+    desc: "Cross-platform iOS & Android apps.",
   },
   {
     name: "React Native",
     icon: <Code2 size={32} />,
     category: "Mobile",
-    desc: "Native-like experiences with JavaScript.",
+    desc: "Native experiences with JavaScript.",
   },
   {
-    name: "Kotlin",
-    icon: <Terminal size={32} />,
-    category: "Mobile",
-    desc: "Modern Android development.",
-  },
-  {
-    name: "Swift",
+    name: "Expo",
     icon: <Zap size={32} />,
     category: "Mobile",
-    desc: "Native iOS development.",
+    desc: "Rapid React Native development.",
+  },
+  {
+    name: "Dart",
+    icon: <Terminal size={32} />,
+    category: "Mobile",
+    desc: "Flutter programming language.",
   },
 
   // Backend (Emerald Theme)
   {
-    name: "Firebase",
-    icon: <Cloud size={32} />,
+    name: "Node.js",
+    icon: <Server size={32} />,
     category: "Backend",
-    desc: "Real-time DB & serverless backend.",
+    desc: "Scalable server-side JavaScript.",
+  },
+  {
+    name: "Express.js",
+    icon: <Globe size={32} />,
+    category: "Backend",
+    desc: "Fast web application framework.",
+  },
+  {
+    name: "TypeScript",
+    icon: <Code2 size={32} />,
+    category: "Backend",
+    desc: "Type-safe JavaScript development.",
+  },
+  {
+    name: "C# & .NET",
+    icon: <Cpu size={32} />,
+    category: "Backend",
+    desc: "Enterprise backend solutions.",
+  },
+  {
+    name: "REST APIs",
+    icon: <Globe size={28} />,
+    category: "Backend",
+    desc: "RESTful service architecture.",
   },
   {
     name: "GraphQL",
-    icon: <Globe size={28} />,
-    category: "Backend",
-    desc: "Efficient data querying APIs.",
-  },
-  {
-    name: "Node.js",
-    icon: <Server size={24} />,
-    category: "Backend",
-    desc: "Scalable server-side applications.",
-  },
-  {
-    name: "Local DB",
     icon: <Database size={28} />,
     category: "Backend",
-    desc: "Room, Hive, & SQLite solutions.",
+    desc: "Efficient data query language.",
   },
 
-  // Core (Amber Theme)
+  // Database (Purple Theme)
   {
-    name: "Clean Arch",
+    name: "MongoDB",
+    icon: <Database size={32} />,
+    category: "Database",
+    desc: "NoSQL document database.",
+  },
+  {
+    name: "PostgreSQL",
+    icon: <Database size={32} />,
+    category: "Database",
+    desc: "Relational database system.",
+  },
+  {
+    name: "SQLite",
+    icon: <Database size={28} />,
+    category: "Database",
+    desc: "Lightweight local database.",
+  },
+  {
+    name: "Firebase Firestore",
+    icon: <Cloud size={28} />,
+    category: "Database",
+    desc: "Real-time cloud database.",
+  },
+
+  // State Management (Amber Theme)
+  {
+    name: "GetX",
+    icon: <Settings size={32} />,
+    category: "State",
+    desc: "Flutter state & navigation.",
+  },
+  {
+    name: "Provider",
     icon: <Layers size={32} />,
-    category: "Core",
-    desc: "Scalable & testable code structure.",
+    category: "State",
+    desc: "Flutter state management.",
   },
   {
-    name: "State Mgmt",
+    name: "Riverpod",
     icon: <Settings size={28} />,
-    category: "Core",
-    desc: "Redux, Bloc, Riverpod patterns.",
+    category: "State",
+    desc: "Advanced Flutter state solution.",
+  },
+  {
+    name: "Zustand",
+    icon: <Zap size={28} />,
+    category: "State",
+    desc: "React Native state management.",
+  },
+  {
+    name: "Redux",
+    icon: <Layers size={28} />,
+    category: "State",
+    desc: "Predictable state container.",
   },
 
-  // Design (Pink Theme)
+  // Cloud & Real-Time (Cyan Theme)
   {
-    name: "UI/UX",
-    icon: <PenTool size={28} />,
-    category: "Design",
-    desc: "Intuitive & accessible interfaces.",
+    name: "Firebase",
+    icon: <Cloud size={32} />,
+    category: "Cloud",
+    desc: "Backend-as-a-Service platform.",
   },
   {
-    name: "Design Systems",
-    icon: <Layout size={24} />,
-    category: "Design",
-    desc: "Consistent component libraries.",
+    name: "Socket.IO",
+    icon: <Wifi size={32} />,
+    category: "Cloud",
+    desc: "Real-time bidirectional events.",
   },
   {
-    name: "Motion",
-    icon: <Zap size={24} />,
-    category: "Design",
-    desc: "Fluid & engaging interactions.",
+    name: "SignalR",
+    icon: <Wifi size={28} />,
+    category: "Cloud",
+    desc: "Real-time web functionality.",
+  },
+  {
+    name: "Push Notifications",
+    icon: <Bell size={28} />,
+    category: "Cloud",
+    desc: "Firebase & native notifications.",
   },
 
   // Tools (Violet Theme)
   {
-    name: "Docker",
-    icon: <Box size={24} />,
+    name: "Git & GitHub",
+    icon: <GitBranch size={32} />,
     category: "Tools",
-    desc: "Containerization & deployment.",
+    desc: "Version control & collaboration.",
   },
   {
-    name: "Testing",
-    icon: <Cpu size={28} />,
+    name: "Postman",
+    icon: <Box size={32} />,
     category: "Tools",
-    desc: "Unit, Widget & Integration tests.",
+    desc: "API testing & development.",
   },
   {
-    name: "Push Notifs",
-    icon: <Wifi size={28} />,
+    name: "Jira",
+    icon: <Layout size={28} />,
     category: "Tools",
-    desc: "User engagement & updates.",
+    desc: "Project & issue tracking.",
+  },
+  {
+    name: "Posthog",
+    icon: <PieChart size={28} />,
+    category: "Tools",
+    desc: "Product analytics platform.",
+  },
+  {
+    name: "App Store",
+    icon: <Smartphone size={28} />,
+    category: "Tools",
+    desc: "iOS app distribution.",
+  },
+  {
+    name: "Play Store",
+    icon: <Smartphone size={28} />,
+    category: "Tools",
+    desc: "Android app distribution.",
+  },
+  {
+    name: "Auth0",
+    icon: <Shield size={28} />,
+    category: "Tools",
+    desc: "Authentication & authorization.",
+  },
+  {
+    name: "Razorpay",
+    icon: <CreditCard size={28} />,
+    category: "Tools",
+    desc: "Payment gateway integration.",
   },
 ];
 
@@ -504,10 +297,12 @@ const filterCategories: SkillCategory[] = [
   "All",
   "Mobile",
   "Backend",
-  "Core",
-  "Design",
+  "Database",
+  "State",
+  "Cloud",
   "Tools",
 ];
+
 
 // --- Main Component ---
 
@@ -554,8 +349,8 @@ const Skills = () => {
             transition={{ delay: 0.2 }}
             className="text-text-gray max-w-lg mx-auto"
           >
-            A curated list of technologies I use to build scalable,
-            high-performance mobile solutions.
+            Full-stack technologies I&apos;ve learned and implemented across
+            mobile, backend, and cloud platforms.
           </motion.p>
         </div>
 

@@ -84,12 +84,15 @@ const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#"
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-600 min-w-[44px] min-h-[44px] flex items-center"
+            className="flex flex-col items-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-purple-600 min-w-[44px] min-h-[44px]"
             aria-label="Anand Patel Portfolio Home"
             whileHover={{ scale: 1.1, color: "var(--secondary)" }}
             whileTap={{ scale: 0.9 }}
           >
             Anand Patel
+            <span className="text-xs font-medium text-text-gray tracking-wide">
+              Mobile App Developer
+            </span>
           </motion.a>
 
           {/* Desktop Menu */}

@@ -104,19 +104,15 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                I’m a{" "}
+                I&apos;m a{" "}
                 <strong className="text-secondary">
                   Mobile & Full-Stack Engineer
                 </strong>{" "}
-                who designs and ships production-ready{" "}
-                <strong className="text-secondary">iOS</strong> and{" "}
-                <strong className="text-secondary">Android</strong> apps using
-                Flutter and React Native. I focus on building fast, reliable,
-                and scalable experiences backed by secure{" "}
-                <strong className="text-secondary">
-                  Firebase, Auth, and cloud architectures
-                </strong>
-                .
+                who architects and delivers production-grade cross-platform
+                applications using Flutter and React Native. I specialize in
+                building scalable, high-performance systems with 99.9%
+                crash-free rates and seamless integration of Firebase, OAuth,
+                payment gateways, and cloud architectures.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -124,23 +120,18 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                Over the past few years, I’ve led the engineering of{" "}
-                <strong className="text-secondary">BharatLaw.ai</strong> and{" "}
-                <strong className="text-secondary">YankiAI</strong>—solving
-                challenges across real-time communication, subscriptions, media
-                streaming, security, app-store compliance, and performance
-                optimization. My work spans{" "}
+                My engineering work spans{" "}
+                <strong className="text-secondary">AI-powered platforms</strong>
+                , compliance automation tools, and B2B SaaS solutions tackling
+                challenges in real-time communication, subscription management,
+                media streaming, advanced security implementations, and App
+                Store compliance. I&apos;ve delivered multiple production
+                releases with{" "}
                 <strong className="text-secondary">
-                  AI-enabled applications
+                  zero post-deployment incidents
                 </strong>
-                ,{" "}
-                <strong className="text-secondary">mobile architecture</strong>,
-                and{" "}
-                <strong className="text-secondary">
-                  feature-rich product ecosystems
-                </strong>
-                , with a focus on clean engineering and long-term
-                maintainability.
+                , focusing on clean architecture, performance optimization, and
+                long-term maintainability across diverse industry verticals.
               </motion.p>
             </div>
 

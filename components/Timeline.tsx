@@ -9,33 +9,34 @@ import { Briefcase, Building2 } from "lucide-react";
 // --- Data ---
 const experiences = [
   {
-    year: "2023 - Present",
-    title: "Senior Mobile Architect",
-    company: "Tech Innovations Inc.",
+    year: "Nov 2023 - Present",
+    title: "Software Engineer - I",
+    company: "Promact Infotech Pvt. Ltd.",
     description:
-      "Leading the mobile engineering team. Architected a modular Flutter super-app that reduced build times by 40% and increased user retention by 25%.",
-    techStack: ["Flutter", "Dart", "Firebase", "Codemagic"],
-    color: "#38bdf8", // Cyan
+      "Developing and maintaining cross-platform mobile applications serving diverse domains including AI-powered lifestyle assistants, compliance automation, and legal tech platforms. Architected scalable solutions achieving 99.9% crash-free rate and 23% performance improvements. Delivered 4 major production releases with zero post-deployment incidents. Implemented advanced security features including code obfuscation, OAuth authentication, payment gateway integrations, and custom HTML rendering engines. Managing full development lifecycle from architecture design to App Store & Play Store deployments.",
+    techStack: ["React Native", "Expo", "Flutter", "Riverpod", "Provider", "SignalR", "Node.js", "Auth0", "Firebase", "Razorpay"],
+    color: "#38bdf8",
   },
   {
-    year: "2021 - 2023",
-    title: "Full Stack Developer",
-    company: "Creative Solutions",
+    year: "Aug 2023 - Nov 2023",
+    title: "Software Engineer Trainee & Intern",
+    company: "Promact Infotech Pvt. Ltd.",
     description:
-      "Developed scalable backend services using Node.js and integrated them with high-performance React Native frontends for fintech clients.",
-    techStack: ["React Native", "Node.js", "GraphQL", "AWS"],
-    color: "#818cf8", // Indigo
+      "Completed intensive training program focusing on mobile and backend development. Built multiple training projects to master Flutter for cross-platform mobile development and Node.js for backend services. Developed proficiency in state management, API integration, and full-stack application architecture, preparing for production-level development.",
+    techStack: ["Flutter", "Node.js", "REST APIs"],
+    color: "#818cf8",
   },
   {
-    year: "2019 - 2021",
-    title: "IoT Systems Engineer",
-    company: "Smart Connect",
+    year: "Jan 2023 - Jun 2023",
+    title: "Associate Software Engineer Trainee",
+    company: "Niyantras",
     description:
-      "Built real-time monitoring dashboards for industrial IoT sensors. Optimized data pipelines processing 1M+ events daily.",
-    techStack: ["Python", "MQTT", "React", "InfluxDB"],
-    color: "#4ade80", // Green
+      "Engineered white-labeled B2B ordering platform from ground up for food distribution networks. Designed and developed dynamic product catalogs with multi-tier filtering, real-time order tracking, and customizable branding. Enhanced operational efficiency for distributors through intuitive UI/UX and seamless REST API integration.",
+    techStack: ["Flutter", "GetX", "Dio", "REST APIs"],
+    color: "#4ade80",
   },
 ];
+
 
 // --- Individual Card ---
 const ExperienceCard = ({

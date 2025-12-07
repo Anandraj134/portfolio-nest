@@ -18,8 +18,8 @@ import {
 } from "lucide-react";
 import MagneticWrapper from "./MagneticWrapper";
 import TextReveal from "./TextReveal";
-import GlitchText from "./GlitchText";
 import { useSectionView } from "@/hooks/useSectionView";
+import TypewriterText from "./GlitchText";
 
 const Hero = () => {
   const { ref } = useSectionView({ sectionName: "hero" });
@@ -54,10 +54,10 @@ const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -159,7 +159,7 @@ const Hero = () => {
         <div className="text-2xl md:text-4xl text-text-gray mb-8 font-light flex flex-col md:flex-row items-center justify-center gap-3">
           <span>I Craft</span>
           <div className="font-semibold text-text-light">
-            <GlitchText />
+            <TypewriterText />
           </div>
         </div>
 
@@ -171,15 +171,17 @@ const Hero = () => {
           className="text-base md:text-lg text-text-gray mb-10 max-w-2xl mx-auto leading-relaxed"
         >
           From idea to execution - I build fast, fluid{" "}
-          <span className="text-secondary">iOS</span> &{" "}
-          <span className="text-secondary">Android</span> apps using Flutter and React Native, engineered for real performance and scale.
+          <span className="text-secondary font-semibold">iOS</span> &{" "}
+          <span className="text-secondary font-semibold">Android</span> apps
+          using Flutter and React Native, engineered for real performance and
+          scale.
         </motion.p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <MagneticWrapper className="inline-block w-full sm:w-auto">
             <motion.button
-              onClick={scrollToAbout}
+              onClick={() => scrollToSection("projects")}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
@@ -197,6 +199,7 @@ const Hero = () => {
 
           <MagneticWrapper className="inline-block w-full sm:w-auto">
             <motion.button
+              onClick={() => scrollToSection("contact")}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}

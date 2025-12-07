@@ -452,7 +452,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
           </h4>
           {/* Small Colored Indicator Line */}
           <div
-            className={`h-1 w-8 rounded-full ${styles.bg.replace("/10", "")}`}
+            className={`h-1 w-8 rounded-full ${styles.bg}`}
           />
         </div>
 

@@ -23,62 +23,166 @@ import dynamic from "next/dynamic";
 
 const ProjectModal = dynamic(() => import("./ProjectModal"), { ssr: false });
 
-const projects = [
+type ProjectType = "professional" | "personal";
+
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  tags: string[];
+  theme: string;
+  github: string | null;
+  demo: string | null;
+  playstore?: string;
+  stats: { label: string; value: string };
+  featured: boolean;
+  type: ProjectType;
+}
+
+const projects: Project[] = [
+  // ========== PROFESSIONAL PROJECTS ==========
+  // {
+  //   id: 1,
+  //   title: "YankiAI: JewishLife Solutions",
+  //   category: "Professional • AI Mobile App",
+  //   description:
+  //     "AI-powered Jewish lifestyle assistant with 598+ downloads, 10.6% conversion rate. Features marketplace, restaurants, community feed, real-time chat, and 15+ integrated modules.",
+  //   image: "/images/yanki.jpg",
+  //   tags: ["React Native", "Expo", "SignalR", "Zustand", "Push Notifications"],
+  //   theme: "#38bdf8", // Cyan - Professional
+  //   github: null, // Client project - no public repo
+  //   demo: "https://apps.apple.com/app/yankiai",
+  //   playstore: "https://play.google.com/store/apps/yankiai",
+  //   stats: { label: "Downloads", value: "598+" },
+  //   featured: true,
+  //   type: "professional",
+  // },
+  // {
+  //   id: 2,
+  //   title: "BharatLaw AI",
+  //   category: "Professional • Legal Research",
+  //   description:
+  //     "AI-powered legal research platform for Indian law with comprehensive case law database. Optimized to 10MB Android/45MB iOS with custom HTML rendering and Auth0 integration.",
+  //   image: "/images/bharatlaw.jpg",
+  //   tags: ["Flutter", "Provider", "Auth0", "Razorpay", "In-App Purchase"],
+  //   theme: "#818cf8", // Indigo - Professional
+  //   github: null,
+  //   demo: "https://apps.apple.com/app/bharatlaw-ai",
+  //   playstore: "https://play.google.com/store/apps/bharatlaw",
+  //   stats: { label: "App Size", value: "10MB" },
+  //   featured: true,
+  //   type: "professional",
+  // },
+  // {
+  //   id: 3,
+  //   title: "Taras Crunch",
+  //   category: "Professional • VAT Compliance",
+  //   description:
+  //     "Specialized UK VAT compliance platform with AI-powered error detection, real-time validation, and automated calculations. Built for accountants and businesses.",
+  //   image: "/images/taras.jpg",
+  //   tags: ["Flutter", "Riverpod", "SignalR", "SQLite", "Firebase"],
+  //   theme: "#4ade80", // Green - Professional
+  //   github: null,
+  //   demo: "https://apps.apple.com/app/taras-crunch",
+  //   playstore: "https://play.google.com/store/apps/taras",
+  //   stats: { label: "Platform", value: "iOS & Android" },
+  //   featured: true,
+  //   type: "professional",
+  // },
+  // {
+  //   id: 4,
+  //   title: "LogisticaForce",
+  //   category: "Professional • eCommerce",
+  //   description:
+  //     "White-labeled ordering platform for foodservice distributors with advanced search, order guides, and inventory management for seamless B2B operations.",
+  //   image: "/images/logistica.jpg",
+  //   tags: ["Flutter", "GetX", "Dio", "REST APIs"],
+  //   theme: "#f59e0b", // Amber - Professional
+  //   github: null,
+  //   demo: "https://apps.apple.com/app/logisticaforce",
+  //   playstore: "https://play.google.com/store/apps/logisticaforce",
+  //   stats: { label: "Type", value: "B2B Platform" },
+  //   featured: false,
+  //   type: "professional",
+  // },
+
+  // ========== PERSONAL PROJECTS ==========
   {
-    id: 1,
-    title: "E-Commerce Platform",
-    category: "Web Application",
+    id: 5,
+    title: "Secure Wallet Pro",
+    category: "Finance Management",
     description:
-      "A scalable e-commerce architecture handling thousands of concurrent users with real-time inventory sync.",
-    image: "/images/project1.jpg",
-    tags: ["Next.js", "Stripe", "Sanity", "Redis"],
-    theme: "#38bdf8",
-    github: "https://github.com",
-    demo: "https://demo.com",
-    stats: { label: "Users", value: "10k+" },
+      "Production-ready financial management app with HMAC security, 2FA, AES-256 encryption. Tracks 11 investment types including FD, RD, stocks, crypto, PPF, NSC with real-time pricing.",
+    image: "/images/secure-wallet-pro.png",
+    tags: ["Flutter", "Riverpod", "Node.js", "PostgreSQL", "Redis"],
+    theme: "#8b5cf6", // Violet - Personal
+    github: "https://github.com/Anand-s-FlutterLab/secure-wallet-pro",
+    demo: null,
+    stats: { label: "Features", value: "11 Modules" },
     featured: true,
+    type: "personal",
   },
   {
-    id: 2,
-    title: "Social Analytics",
-    category: "Data Vis",
+    id: 6,
+    title: "Gossip Grove",
+    category: "Real-Time Chat",
     description:
-      "Real-time dashboard for tracking social media engagement metrics.",
-    image: "/images/project2.jpg",
-    tags: ["React", "D3.js", "Firebase"],
-    theme: "#818cf8",
-    github: "https://github.com",
-    demo: "https://demo.com",
-    stats: { label: "Data Points", value: "1M+" },
+      "Real-time messaging platform with Socket.IO, one-on-one chats, profile management, and push notifications. Full-stack with Node.js backend and MongoDB.",
+    image: "/images/gossip-grove.png",
+    tags: ["Flutter", "Socket.IO", "Node.js", "MongoDB", "Firebase"],
+    theme: "#ec4899", // Pink - Personal
+    github: "https://github.com/Anand-s-FlutterLab/Gossip-Grove-Frontend",
+    demo: null,
+    stats: { label: "Type", value: "Full-Stack" },
     featured: false,
+    type: "personal",
   },
   {
-    id: 3,
-    title: "Task Flow Mobile",
-    category: "Mobile App",
+    id: 7,
+    title: "Budget Buddy",
+    category: "Finance Tracker",
     description:
-      "Collaborative task management tool for remote teams with offline support.",
-    image: "/images/project3.jpg",
-    tags: ["Flutter", "Node.js", "MongoDB"],
-    theme: "#4ade80",
-    github: "https://github.com",
-    demo: "https://demo.com",
-    stats: { label: "Downloads", value: "5k+" },
+      "Comprehensive expense tracking app with income/expense categorization, monthly summaries, graphical analytics (pie charts, bar graphs), and MongoDB sync.",
+    image: "/images/budget-buddy.png",
+    tags: ["Flutter", "Provider", "Node.js", "MongoDB", "Charts"],
+    theme: "#10b981", // Emerald - Personal
+    github: "https://github.com/Anand-s-FlutterLab/BudgetBuddyFrontend",
+    demo: null,
+    stats: { label: "Features", value: "Analytics" },
     featured: false,
+    type: "personal",
   },
   {
-    id: 4,
-    title: "AI Art Generator",
-    category: "AI Tool",
+    id: 8,
+    title: "Shop Express",
+    category: "eCommerce App",
     description:
-      "Generates high-quality images from text prompts using OpenAI's DALL-E.",
-    image: "/images/project4.jpg",
-    tags: ["React Native", "OpenAI", "Python"],
-    theme: "#f472b6",
-    github: "https://github.com",
-    demo: "https://demo.com",
-    stats: { label: "Generated", value: "50k+" },
+      "Full-featured e-commerce app with product catalog, cart, checkout, wishlists, order history, and admin panel for product management.",
+    image: "/images/shop-express.png",
+    tags: ["Flutter", "GetX", "Firebase", "Firestore", "Firebase Auth"],
+    theme: "#f97316", // Orange - Personal
+    github: "https://github.com/Anand-s-FlutterLab/Shop-Express",
+    demo: null,
+    stats: { label: "Admin", value: "Included" },
     featured: false,
+    type: "personal",
+  },
+  {
+    id: 9,
+    title: "Weather Snap",
+    category: "Weather App",
+    description:
+      "Real-time weather forecasting app with 3-day forecasts, city search, unit conversion, and personalized weather reports using REST APIs.",
+    image: "/images/weather-snap.png",
+    tags: ["Flutter", "Provider", "REST API", "Geolocator", "Hive"],
+    theme: "#06b6d4", // Cyan - Personal
+    github: "https://github.com/Anand-s-FlutterLab/Weather-Snap",
+    demo: null,
+    stats: { label: "Forecast", value: "3 Days" },
+    featured: false,
+    type: "personal",
   },
 ];
 
@@ -144,7 +248,7 @@ const ProjectCard = ({
       <div
         className={`relative overflow-hidden ${
           project.featured
-            ? "w-full md:w-[60%] h-[300px] md:h-[450px]"
+            ? "w-full md:w-[60%] h-[300px] md:h-auto md:min-h-[450px]" // CHANGED HERE
             : "w-full h-[280px]"
         }`}
       >
@@ -158,7 +262,7 @@ const ProjectCard = ({
 
         {/* Stats Badge Floating */}
         <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2 text-sm font-medium text-white z-10">
-          {project.category === "Mobile App" ? (
+          {project.category.includes("Mobile") ? (
             <Smartphone size={14} />
           ) : (
             <Layers size={14} />
@@ -166,7 +270,6 @@ const ProjectCard = ({
           {project.category}
         </div>
       </div>
-
       {/* Content Section */}
       <div
         className={`relative z-10 p-8 flex flex-col justify-between bg-white/[0.02] backdrop-blur-sm ${
@@ -193,11 +296,6 @@ const ProjectCard = ({
               <span>
                 {project.stats.value} {project.stats.label}
               </span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-white/20" />
-            <div className="flex items-center gap-1.5">
-              <Clock size={16} className="text-accent" />
-              <span>Just Shipped</span>
             </div>
           </div>
         </div>
@@ -257,7 +355,7 @@ const Projects = () => {
             </p>
           </div>
           <a
-            href="https://github.com"
+            href="https://github.com/Anand-s-FlutterLab"
             className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-text-light hover:bg-white/5 transition-colors"
           >
             <Github size={20} />

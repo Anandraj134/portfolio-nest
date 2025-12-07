@@ -17,7 +17,6 @@ import {
   Layers,
   Smartphone, // Added missing import
   Users,
-  Clock,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 

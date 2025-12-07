@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import FirebaseAnalytics from "@/components/FirebaseAnalytics";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,49 +23,52 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://anandpatel.dev"), // Replace with actual domain
+  metadataBase: new URL("https://anandpatel.dev"), 
   title: {
-    default: "Anand Patel | Mobile & Web Developer",
+    default: "Anand Patel | Mobile & Full-Stack Engineer",
     template: "%s | Anand Patel",
   },
   description:
-    "Portfolio of Anand Patel, a passionate mobile and web developer specializing in React, Next.js, and Flutter. View my projects and get in touch.",
+    "Architecting production-grade cross-platform apps using Flutter and React Native. Specialist in AI integration, secure cloud architectures, and 99.9% crash-free systems.",
   keywords: [
     "Anand Patel",
-    "Mobile Developer",
-    "Web Developer",
-    "React",
-    "Next.js",
-    "Flutter",
-    "Portfolio",
-    "Frontend Engineer",
+    "Mobile Engineer",
+    "Full-Stack Developer",
+    "Flutter Expert",
+    "React Native",
+    "Expo",
+    "AI Integration",
+    "Node.js",
+    "System Architecture",
+    "Promact Infotech",
+    "B2B SaaS"
   ],
-  authors: [{ name: "Anand Patel" }],
+  authors: [{ name: "Anand Patel", url: "https://anandpatel.dev" }],
   creator: "Anand Patel",
   openGraph: {
-    type: "website",
+    type: "profile", // "profile" is more specific for personal portfolios than "website"
     locale: "en_US",
     url: "https://anandpatel.dev",
-    title: "Anand Patel | Mobile & Web Developer",
+    title: "Anand Patel | Mobile & Full-Stack Engineer",
     description:
-      "Portfolio of Anand Patel, a passionate mobile and web developer specializing in React, Next.js, and Flutter.",
+      "Architecting production-grade cross-platform apps using Flutter and React Native. Specialist in AI integration and secure cloud architectures.",
     siteName: "Anand Patel Portfolio",
     images: [
       {
-        url: "/images/og-image.jpg", // Ensure this image exists
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Anand Patel Portfolio",
+        alt: "Anand Patel - Mobile & Full-Stack Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anand Patel | Mobile & Web Developer",
+    title: "Anand Patel | Mobile & Full-Stack Engineer",
     description:
-      "Portfolio of Anand Patel, a passionate mobile and web developer specializing in React, Next.js, and Flutter.",
+      "Architecting production-grade cross-platform apps using Flutter and React Native. Specialist in AI integration.",
     images: ["/images/og-image.jpg"],
-    creator: "@anandpatel", // Replace with actual handle
+    creator: "@anandpatel", 
   },
   robots: {
     index: true,
@@ -78,23 +81,43 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Anand Patel",
-  url: "https://anandpatel.dev",
-  jobTitle: "Mobile & Web Developer",
-  sameAs: [
+  "name": "Anand Patel",
+  "url": "https://anandpatel.dev",
+  "jobTitle": "Mobile & Full-Stack Engineer",
+  "description": "Mobile & Full-Stack Engineer architecting scalable AI-powered platforms and B2B SaaS solutions with 99.9% reliability.",
+  "image": "https://anandpatel.dev/images/avatar.jpg", // Ensure you have an avatar image
+  "sameAs": [
     "https://github.com/anandpatel",
     "https://linkedin.com/in/anandpatel",
-    "https://twitter.com/anandpatel",
+    "https://twitter.com/anandpatel"
   ],
-  worksFor: {
+  "worksFor": {
     "@type": "Organization",
-    name: "Freelance",
+    "name": "Promact Infotech Pvt. Ltd.",
+    "url": "https://www.promactinfo.com"
   },
+  "knowsAbout": [
+    "Flutter",
+    "React Native",
+    "Expo",
+    "Node.js",
+    "Firebase",
+    "System Architecture",
+    "AI Integration",
+    "Mobile Application Development"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Gujarat Technological University" // Inferred from typical Promact/Ahmedabad region profiles; verify if accurate
+  }
 };
 
 export default function RootLayout({

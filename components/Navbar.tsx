@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 
 // Dynamic import to avoid hydration mismatch with mobile menu
 const MobileMenu = dynamic(() => import("./MobileMenu"), { ssr: false });
@@ -11,6 +12,7 @@ const MobileMenu = dynamic(() => import("./MobileMenu"), { ssr: false });
 import { trackClick } from "@/utils/analytics";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,10 +62,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScrollSpy);
   }, []);
 
+  // Hide navbar on project detail pages
+  if (pathname?.startsWith("/projects/")) {
+    return null;
+  }
+
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Certifications", href: "#certifications" },
     { name: "Experience", href: "#experience" }, // Correct href matching ID in Timeline.tsx
     { name: "Contact", href: "#contact" },
   ];

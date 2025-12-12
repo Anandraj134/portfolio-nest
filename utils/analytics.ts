@@ -23,7 +23,13 @@ export interface AnalyticsEvent {
 // --- Event Specific Interfaces ---
 
 export interface SectionViewProps {
-  section_name: "hero" | "skills" | "experience" | "projects" | "contact";
+  section_name:
+    | "hero"
+    | "skills"
+    | "experience"
+    | "projects"
+    | "contact"
+    | "certifications";
 }
 
 export interface NavClickProps {

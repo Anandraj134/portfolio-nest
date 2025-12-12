@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { trackSectionView } from "../utils/analytics";
 
 interface UseSectionViewOptions {
-  sectionName: "hero" | "skills" | "experience" | "projects" | "contact";
+  sectionName:
+    | "hero"
+    | "skills"
+    | "experience"
+    | "projects"
+    | "contact"
+    | "certifications";
   threshold?: number; // 0.0 to 1.0
   minDuration?: number; // Minimum time in ms to count as a view
 }

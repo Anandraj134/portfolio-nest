@@ -133,7 +133,7 @@ export const projects: Project[] = [
       "Real-time messaging platform with Socket.IO, one-on-one chats, profile management, and push notifications. Full-stack with Node.js backend and MongoDB.",
     description:
       "A full-stack real-time messaging application I built to master WebSocket communication. I developed the backend using Node.js and Socket.IO to handle instant bidirectional events, storing chat history in MongoDB. On the frontend, I implemented a responsive Flutter UI that supports one-on-one chats, live status updates, and profile management. I also integrated Firebase Cloud Messaging (FCM) to ensure reliable push notifications for offline users, creating a seamless communication experience.",
-    image: "/images/gossip-grove.png",
+    image: "/images/gossip-grove.jpg",
     media: [
       {
         type: "image",
@@ -199,7 +199,7 @@ export const projects: Project[] = [
       "Comprehensive expense tracking app with income/expense categorization, monthly summaries, graphical analytics (pie charts, bar graphs), and MongoDB sync.",
     description:
       "A personal finance tracker I designed to help users visualize their spending habits. I built the backend with Node.js and MongoDB to synchronize data across devices. For the frontend, I utilized Flutter to create interactive graphical analytics, including pie charts and bar graphs for monthly expense breakdowns. I implemented secure user authentication and a robust transaction logging system that allows users to categorize income and expenses, providing actionable financial insights.",
-    image: "/images/budget-buddy.png",
+    image: "/images/budget-buddy.jpg",
     media: [
       {
         type: "image",
@@ -270,7 +270,7 @@ export const projects: Project[] = [
       "Full-featured e-commerce app with product catalog, cart, checkout, wishlists, order history, and admin panel for product management.",
     description:
       "A comprehensive e-commerce solution I developed to explore the Firebase ecosystem. I built a complete shopping experience with product catalogs, cart management, and secure checkout flows using Flutter and GetX for state management. I leveraged Firebase Firestore for real-time data storage and Firebase Auth for user management. Additionally, I built an admin panel within the app to manage inventory, update product details, and track orders, creating a full-cycle e-commerce platform.",
-    image: "/images/shop-express.png",
+    image: "/images/shop-express.jpg",
     media: [
       {
         type: "image",
@@ -373,7 +373,7 @@ export const projects: Project[] = [
       "Real-time weather forecasting app with 3-day forecasts, city search, unit conversion, and personalized weather reports using REST APIs.",
     description:
       "An elegant weather forecasting application I built to work with REST APIs and location services. I implemented the OpenWeatherMap API to fetch real-time weather data and 3-day forecasts. The app features dynamic background changes based on weather conditions, automatic location detection using the Geolocator package, and local data persistence with Hive for a seamless offline experience. I focused heavily on UI/UX to provide a clean, intuitive interface for checking weather updates.",
-    image: "/images/weather-snap.png",
+    image: "/images/weather-snap.jpg",
     media: [
       {
         type: "image",
